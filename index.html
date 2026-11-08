@@ -201,6 +201,10 @@
   .noot.aan { opacity: 1; transform: none; }
   .plaatkop { max-width: 760px; margin: 0 auto 28px; text-align: center; opacity: 0; transform: translateY(8px); transition: opacity .7s, transform .7s; }
   .plaatkop.aan { opacity: 1; transform: none; }
+  .afzender { text-align: center; margin: 18px 0 0; font-family: var(--hand); font-size: 16px; letter-spacing: .04em; opacity: 0; transition: opacity .7s .6s; }
+  .afzender.aan { opacity: 1; }
+  .afzender a { color: var(--inkt-zacht); text-decoration: none; border-bottom: 1px solid #c9cfdd; }
+  .afzender a:hover { color: var(--inkt); border-bottom-color: var(--inkt); }
   .kopstrook { position: relative; }
   .bijschrift { position: absolute; z-index: 9; box-sizing: border-box; font-family: var(--kop); font-weight: 700; font-size: 3.1cqw; line-height: 1.2;
     color: var(--inkt); opacity: 0; transform: translateY(calc(-50% + 6px)); transition: opacity .9s ease, transform .9s ease; pointer-events: none; }
@@ -282,6 +286,7 @@
   <svg class="noten" id="noten" viewBox="0 0 1000 1300" aria-hidden="true"></svg>
   <svg class="agents" id="agents" viewBox="0 0 1000 1300" aria-hidden="true"></svg>
 </div>
+<p class="afzender" id="afzender"><a href="https://www.morphy.world">www.morphy.world</a></p>
 
 
 <script>
@@ -385,6 +390,7 @@ function bouw() {
   $("agents").innerHTML = "";
   $("noten").classList.remove("aan");
   $("plaatkop").classList.remove("aan");
+  $("afzender").classList.remove("aan");
   $("stage").querySelectorAll(".bijschrift").forEach(b => b.remove());
   for (const [naam, b] of Object.entries(BIJSCHRIFTEN)) {
     const d = document.createElement("div");
@@ -631,6 +637,7 @@ async function speel() {
   await wacht(T.uitleg); if (!ok()) return;
   $("noten").classList.add("aan");
   $("plaatkop").classList.add("aan");
+  $("afzender").classList.add("aan");
   $("stage").querySelectorAll(".noot").forEach(n => n.classList.add("aan"));
 }
 
