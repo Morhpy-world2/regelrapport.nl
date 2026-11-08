@@ -265,10 +265,10 @@
   .notenlijst { display: none; }
   /* smalle schermen: plaat schermbreed, bijschriften in een balk onder de plaat, notities als lijst, ronde knop rechtsonder */
   @media (max-width: 700px) {
-    body { padding-block: 16px 96px; }
+    body { padding-block: 16px 120px; padding-left: max(10px, env(safe-area-inset-left, 0px)); padding-right: max(10px, env(safe-area-inset-right, 0px)); }   /* ruimte onderaan: de Netlify-badge staat rechtsonder */
     .plaatkop { margin-bottom: 18px; }
-    .stage { width: 100%; max-width: none; margin-bottom: 84px; }
-    .bijschrift { left: 0 !important; width: 100% !important; top: calc(100% + 14px) !important; margin-left: 0 !important;
+    .stage { width: 100%; max-width: none; margin-bottom: 28px; }
+    .bijschrift { left: 0 !important; width: 100% !important; top: auto !important; bottom: calc(100% + 16px) !important; margin-left: 0 !important;
       text-align: center !important; font-size: 16px !important; transform: translateY(6px) !important; transform-origin: 50% 0 !important; }
     .bijschrift.aan { transform: none !important; }
     .bijschrift span { text-align: center !important; padding: 8px 14px 9px !important; }
@@ -278,7 +278,7 @@
     .notenlijst.aan { opacity: 1; transform: none; }
     .lijstnoot { font-size: 16px; line-height: 1.35; margin: 0 0 16px; }
     .lijstnoot b { display: block; font-family: var(--kop); font-weight: 700; font-size: 18px; padding-bottom: 2px; margin-bottom: 4px; border-bottom: 1.6px solid var(--inkt); }
-    .knoppen { top: auto; bottom: max(18px, env(safe-area-inset-bottom, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); }
+    .knoppen { top: auto; right: auto; bottom: max(18px, env(safe-area-inset-bottom, 0px)); left: max(16px, env(safe-area-inset-left, 0px)); }
     .knoppen button { width: 54px; height: 54px; padding: 0; border-radius: 50%; justify-content: center; }
     .knoppen .icoon { width: 24px; height: 24px; }
     .knoptekst { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
