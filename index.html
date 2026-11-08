@@ -99,7 +99,10 @@
   .bak li.titel { background: none; padding-left: 0; font-weight: 700; font-family: var(--kop); }
   .bak li.sub { margin-left: 8%; }
   .bak li.titel.gloei { box-shadow: none; background: none; color: var(--groen); }
-  .bak li.titel:not(:first-child) { margin-top: 8px; }
+  .bak li.titel:not(:first-child) { margin-top: 7px; padding-top: 6px; border-top: 1.5px dashed #c9a93a; border-radius: 0; }
+  /* het sjabloon wordt twee keer gebruikt: eerst alleen de opbouw, aan het eind alleen de opmaak */
+  .bak li { transition: background .4s, box-shadow .4s, opacity .5s; }
+  .bak.deel-opbouw li[data-deel="opmaak"], .bak.deel-opmaak li[data-deel="opbouw"] { opacity: .28; }
   .bak li.mark { background: #fff; box-shadow: 0 0 0 3px #b8952a; }
   .bak li.gloei { background: #fff; box-shadow: 0 0 0 2px var(--groen); }
   .zone {
@@ -324,8 +327,8 @@
 // de bak met vaste regels: per bedrijf anders (een lijst, een huisstijl, een afbeelding …)
 // soort: titel (kopje in de bak) · sub (hoort bij de titel erboven) · los (eigen regel)
 const VASTE_REGELS = [
-  { t: "Opbouw", soort: "titel" }, { t: "1 Wettelijk kader", soort: "sub" }, { t: "2 Resultaten", soort: "sub" }, { t: "3 Conclusie", soort: "sub" },
-  { t: "Figuren", soort: "titel" }, { t: "genummerd, naam cursief", soort: "sub" },
+  { t: "Opbouw", soort: "titel", deel: "opbouw" }, { t: "1 Wettelijk kader", soort: "sub", deel: "opbouw" }, { t: "2 Resultaten", soort: "sub", deel: "opbouw" }, { t: "3 Conclusie", soort: "sub", deel: "opbouw" },
+  { t: "Opmaak", soort: "titel", deel: "opmaak" }, { t: "Figuren: genummerd, naam cursief", soort: "sub", deel: "opmaak" },
 ];
 // het vaste sjabloon, van boven naar onder. soort: kop · tekst (vaste tekst) · figuur · vak (vaste plek, vak = naam van het rapport)
 // bak = welke regel uit VASTE_REGELS dit onderdeel aan het begin neerzet · later = regel die de laatste agent hier toepast, invul = het resultaat · top / h in % van het vel
@@ -362,7 +365,7 @@ const BIJSCHRIFTEN = {
   onderzoeken: { tekst: "De inhoud komt uit de onderzoeken.",    kant: "links",  x: -10, y: 150 },
   generator:   { tekst: "De generator zoekt, analyseert en herschrijft elke passage.", kant: "rechts", x: 735, y: 440, w: 600 },
   elk:         { tekst: "Zo gaat het met elk onderzoek.",          kant: "rechts", x: 735, y: 440 },
-  opmaak:      { tekst: "Ook de opmaak komt uit het sjabloon.",   kant: "links",  x: -15, y: 760 },
+  opmaak:      { tekst: "Het sjabloon bepaalt ook de opmaak.",   kant: "links",  x: -15, y: 760 },
 };
 const NOTEN = [
   { kop: "Onderzoeken", kant: "links", tekst: "Gedaan door adviesbureaus en opgevraagd voor het project. Uit elk onderzoek komen de norm (wettelijk kader) en de conclusie.",
@@ -406,7 +409,7 @@ function bouw() {
     RAPPORTEN.map((r, i) => `<path class="lijn" d="M${ANKER[i]},${GEN.boven} L${RAP_X[i] + RAP_W / 2},${RAP_ONDER}"/>`).join("") +
     `<path class="lijn" d="M${GEN.x},${GEN.onder} L${GEN.x},${VEL_BOVEN}"/>` +
     `<path class="lijn" d="M${GEN_LINKS},${GEN.y} L${BAK.x},${BAK.boven}"/>`;
-  $("bakregels").innerHTML = VASTE_REGELS.map(r => `<li class="${r.soort}">${r.t}</li>`).join("");
+  $("bakregels").innerHTML = VASTE_REGELS.map(r => `<li class="${r.soort}" data-deel="${r.deel}">${r.t}</li>`).join("");
   $("bak").className = "bak geest";
   // rapporten
   $("rapporten").innerHTML = RAPPORTEN.map((r, i) =>
@@ -618,7 +621,7 @@ async function speel() {
   // 2. eerst het bijschrift, een halve seconde later licht de bak met vaste regels op …
   const bsWacht = bijschrift("sjabloon", 4600, ok);
   await wacht(bsWacht + 500); if (!ok()) return;
-  $("bak").classList.remove("geest"); $("bak").classList.add("focus");
+  $("bak").classList.remove("geest"); $("bak").classList.add("focus", "deel-opbouw");
   await wacht(900); if (!ok()) return;
 
   // 3. … en elke regel krijgt zijn plek op het sjabloon
@@ -633,7 +636,7 @@ async function speel() {
 
   // 4. sjabloon terug naar achteren, grijs
   $("vel").classList.remove("groot"); $("vel").classList.add("geest");
-  $("bak").classList.remove("focus"); $("bak").classList.add("geest");
+  $("bak").classList.remove("focus", "deel-opbouw"); $("bak").classList.add("geest");
   await wacht(800); if (!ok()) return;
 
   // 5. de rapporten komen naar voren
@@ -660,10 +663,11 @@ async function speel() {
 
   // 8. tot slot: de vaste regels van het bedrijf uit de bak
   await wacht(600); if (!ok()) return;
-  $("bak").classList.remove("geest"); $("bak").classList.add("focus");
+  $("bak").classList.remove("geest"); $("bak").classList.add("focus", "deel-opmaak");
   bijschrift("opmaak", 3600, ok);
   await wacht(800); if (!ok()) return;
   await opRegels(T.regels, ok); if (!ok()) return;
+  $("bak").classList.remove("deel-opmaak");
 
   // 9. stilstand: de uitleg bij de onderdelen
   await wacht(T.uitleg); if (!ok()) return;
