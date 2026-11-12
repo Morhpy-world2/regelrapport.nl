@@ -1,5 +1,4 @@
 <!doctype html>
-<!-- Gemaakt door bouw.py. Pas de tekst daar aan en draai `python3 bouw.py`. -->
 <html lang="nl">
 <head>
 <meta charset="utf-8">
@@ -7,121 +6,164 @@
 <title>Regelrapport: van onderzoeken naar rapport</title>
 <meta name="description" content="Regelrapport zet uit jullie onderzoeken en documenten een rapport op, volgens een sjabloon dat uit jullie eigen rapporten komt. Bij elk stuk tekst zie je waar het op rust.">
 <link rel="canonical" href="https://regelrapport.nl/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' rx='3' fill='%23fff' stroke='%231f2b4f' stroke-width='2.5'/%3E%3Cpath d='M11 10h10M11 15h10M11 20h6' stroke='%231f2b4f' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
-<link rel="preload" href="/fonts/kalam-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/stijl.css">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Regelrapport">
 <meta property="og:url" content="https://regelrapport.nl/">
 <meta property="og:title" content="Regelrapport: van onderzoeken naar rapport">
 <meta property="og:description" content="Regelrapport zet uit jullie onderzoeken en documenten een rapport op, volgens een sjabloon dat uit jullie eigen rapporten komt. Bij elk stuk tekst zie je waar het op rust.">
 <meta property="og:locale" content="nl_NL">
-<meta property="og:image" content="https://regelrapport.nl/preview.png">
+<meta property="og:image" content="https://regelrapport.nl/deel-regelrapport.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Eén zin uit een rapport, met een pijl van elk gemarkeerd deel naar zijn bron.">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='2' width='24' height='28' rx='2' fill='%230e4a57'/%3E%3Cpath d='M9 10h14M9 15h14M9 20h9' stroke='%23fff' stroke-width='2.4'/%3E%3Ccircle cx='23' cy='21' r='3' fill='%23f0a35e'/%3E%3C/svg%3E">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preload" href="fonts/kalam-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="stijl.css">
+<script src="script.js" defer></script>
 </head>
 <body>
-<header class="kopbalk"><div class="breed">
-  <a class="naam" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="3" width="20" height="26" rx="3" fill="#fff" stroke="#1f2b4f" stroke-width="2.5"/><path d="M11 10h10M11 15h10M11 20h6" stroke="#1f2b4f" stroke-width="2.5" stroke-linecap="round"/></svg>Regelrapport</a>
-  <nav aria-label="Hoofdmenu"><ul class="menu"><li><a href="/hoe-het-werkt/">Hoe het werkt</a></li><li><a href="/herkomst-en-controle/">Herkomst en controle</a></li><li><a href="/voor-wie/">Voor wie</a></li>
-    <li><a class="knop klein" href="/voorzet/">Kosteloze voorzet</a></li></ul></nav>
-</div></header>
-<main class="breed">
-<section>
-  <p class="boven">Voor bureaus die rapporten schrijven</p>
-  <h1 style="max-width:24ch">Van losse onderzoeken naar een rapport dat je stuk voor stuk kunt volgen.</h1>
-  <p class="intro smal">Je verzamelt onderzoeken, berekeningen en documenten en schrijft daar een rapport van.
-  Regelrapport zet dat rapport voor je op, volgens een sjabloon dat uit jullie eigen rapporten komt. Bij elk stuk tekst
-  zie je waar het op rust. Jij bevestigt en beslist.</p>
-  <div class="acties">
-    <a class="knop" href="/voorzet/">Vraag een kosteloze voorzet aan</a>
-    <a class="link" href="/hoe-het-werkt/">Bekijk hoe het werkt</a>
+<a class="overslaan" href="#inhoud">Naar de inhoud</a>
+<header class="kop">
+  <div class="kader kop-binnen">
+    <a class="merk" href="./" aria-current="page"><svg class="merk-icoon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="4" y="2" width="24" height="28" rx="2" fill="#0e4a57"/><path d="M9 10h14M9 15h14M9 20h9" stroke="#fff" stroke-width="2.4"/><circle cx="23" cy="21" r="3" fill="#f0a35e"/></svg><span>Regelrapport</span></a>
+    <nav class="nav" aria-label="Hoofdmenu">
+      <ul><li><a href="hoe-het-werkt/">Hoe het werkt</a></li><li><a href="herkomst-en-controle/">Herkomst en controle</a></li><li><a href="voor-wie/">Voor wie</a></li><li><a href="over-ons/">Over ons</a></li></ul>
+      <a class="knop knop-klein" href="voorzet/">Kosteloze voorzet</a>
+    </nav>
+  </div>
+</header>
+<main id="inhoud">
+<section class="held held-film">
+  <div class="kader">
+    <div class="held-tekst">
+      <p class="boven">Voor bureaus die rapporten schrijven uit onderzoeken en documenten</p>
+      <h1>Regelrapport zet jullie rapport op.</h1>
+      <p class="intro">Je verzamelt onderzoeken, berekeningen en documenten en schrijft daar een rapport van.
+      Regelrapport zet dat rapport voor je op, volgens een sjabloon dat uit jullie eigen rapporten komt. Jij
+      bevestigt en beslist.</p>
+      <div class="acties">
+        <a class="knop" href="voorzet/">Vraag een kosteloze voorzet aan</a>
+        <a class="pijl" href="hoe-het-werkt/">Zo werkt het</a>
+      </div>
+    </div>
+    <iframe class="film" src="video/werkstuk/?embed=1" title="Animatie: zo maak je een rapport"></iframe>
+  </div>
+</section>
+<section class="sectie zin-sectie" aria-labelledby="zin-kop">
+  <div class="kader">
+    <h2 id="zin-kop">Bij elk stuk tekst zie je waar het op rust</h2>
+    <p class="tekst">Eén zin uit een rapport. Elk gemarkeerd deel wijst terug naar het stuk waar het uit komt: de
+    offerte, de rekenresultaten of het wetsartikel.</p>
+    <figure class="scene scene-breed" aria-labelledby="fragment-titel">
+      <div class="scene-raster">
+        <div class="rapportvel">
+          <p class="fragment-kop" id="fragment-titel"><span>Uit een rapport</span><span>één zin</span></p>
+          <p class="fragment-zin">Op de gevel aan de <mark class="m1">Beukenlaan</mark><sup>1</sup> is de
+      geluidbelasting <mark class="m2">54 dB</mark><sup>2</sup>, en daarmee <mark class="m3">hoger dan de
+      standaardwaarde</mark><sup>3</sup>.</p>
+        </div>
+        <ol class="bronvellen">
+          <li class="bronvel b1"><span class="vel-naam" aria-hidden="true">offerte</span><span class="vel-regels" aria-hidden="true"></span><span class="vel-tekst"><span class="nr">1</span><span>Uit de offerte, met het letterlijke citaat. Door jou bevestigd.</span></span></li>
+          <li class="bronvel b2"><span class="vel-naam" aria-hidden="true">rekenresultaten</span><span class="vel-regels" aria-hidden="true"></span><span class="vel-tekst"><span class="nr">2</span><span>Uit de rekenresultaten, met de plek in het bestand.</span></span></li>
+          <li class="bronvel b3"><span class="vel-naam" aria-hidden="true">wetsartikel</span><span class="vel-regels" aria-hidden="true"></span><span class="vel-tekst"><span class="nr">3</span><span>Uitgerekend volgens de regel, met het wetsartikel erbij.</span></span></li>
+        </ol>
+        <svg class="pijlen" aria-hidden="true" focusable="false"></svg>
+      </div>
+      <figcaption>Verzonnen voorbeeld, om te laten zien hoe het werkt.
+      <a href="herkomst-en-controle/">Meer over herkomst</a></figcaption>
+    </figure>
   </div>
 </section>
 
-<section aria-labelledby="kort">
-  <h2 id="kort">Wat het is, in zes punten</h2>
-  <ul class="rooster">
-    <li class="kaart geel"><h3>Een sjabloon uit jullie eigen rapporten</h3>
-      <p>We leggen een reeks van jullie rapporten naast elkaar. Wat steeds terugkomt, wordt de vaste tekst. Wat
-      per project verschilt, wordt een vraag.</p></li>
-    <li class="kaart"><h3>Een rapport begint met vragen</h3>
-      <p>Per project beantwoord je de vragen van het sjabloon. Je antwoorden bepalen welke stukken in het rapport
-      komen en wat erin staat.</p></li>
-    <li class="kaart blauw"><h3>Een voorzet met bron en citaat</h3>
-      <p>Het systeem leest de stukken van het project en stelt per vraag een antwoord voor, met de bron en het
-      letterlijke citaat erbij. Jij bevestigt of past aan.</p></li>
-    <li class="kaart geel"><h3>Eerdere rapporten erbij</h3>
-      <p>Het systeem zoekt rapporten over een situatie die op de jouwe lijkt: in jullie eigen archief en in de
-      openbare rapporten die wij hebben verzameld.</p></li>
-    <li class="kaart"><h3>Nagekeken op bron, getal en regel</h3>
-      <p>Staat het citaat echt in de bron? Staan de getallen er ook? Zegt de tekst niets wat jij niet hebt
-      geantwoord? Een eindcontrole legt het rapport tegen de wet en de rekenwaarden.</p></li>
-    <li class="kaart groen"><h3>Jij beslist</h3>
-      <p>Het systeem doet voorstellen. Er komt niets definitief in het rapport zonder dat jij het hebt bevestigd,
-      en elke vorige versie blijft bewaard.</p></li>
-  </ul>
-</section>
-
-<section aria-labelledby="oplevert">
-  <h2 id="oplevert">Wat het je oplevert</h2>
-  <ul class="rooster">
-    <li class="kaart"><h3>Minder tijd per rapport</h3>
-      <p>Overtypen, nalopen en zoeken hoe je het de vorige keer deed, neemt het systeem over. Jouw tijd gaat naar
-      het vakinhoudelijke oordeel.</p></li>
-    <li class="kaart"><h3>Elk rapport op dezelfde manier</h3>
-      <p>Dezelfde opbouw, dezelfde formuleringen en dezelfde vragen, wie het rapport ook maakt.</p></li>
-    <li class="kaart"><h3>Een rapport dat je kunt uitleggen</h3>
-      <p>Bij elk stuk tekst zie je waar het op rust. Dat scheelt bij de interne controle en bij vragen van de
-      opdrachtgever of het bevoegd gezag.</p></li>
-  </ul>
-</section>
-
-<section class="twee">
-  <div>
-    <h2>Herken je dit?</h2>
-    <ul class="lijst">
-      <li>Je schrijft steeds hetzelfde soort rapport, maar elk project is net anders.</li>
-      <li>De inhoud komt uit losse stukken: onderzoeken, berekeningen, tekeningen, de offerte, mails van de
-      opdrachtgever.</li>
-      <li>Veel tijd gaat naar overtypen, nalopen en zoeken hoe je het de vorige keer deed.</li>
-      <li>Je moet achteraf kunnen uitleggen waarom er staat wat er staat.</li>
-    </ul>
-    <p style="margin-top:18px"><a class="link" href="/voor-wie/">Voor wie het werkt</a></p>
-  </div>
-  <div class="kaart">
-    <h3>Liever eerst het plaatje?</h3>
-    <p>Twee korte animaties: hoe je een rapport maakt, en wat er achter één alinea zit.</p>
-    <div class="acties" style="margin-top:16px"><a class="knop licht" href="/video/">Bekijk de animatie</a></div>
+<section class="sectie" aria-labelledby="kort">
+  <div class="kader sectie-raster">
+    <p class="marge"><span>01</span>In het kort</p>
+    <div class="sectie-inhoud">
+      <h2 id="kort">Wat Regelrapport doet, in zes punten</h2>
+      <ul class="punten">
+        <li><h3>Het sjabloon komt uit jullie rapporten</h3><p>We leggen een reeks van jullie rapporten naast elkaar. Wat steeds terugkomt, wordt de vaste tekst. Wat per project verschilt, wordt een vraag.</p></li>
+        <li><h3>Elk rapport begint met vragen</h3><p>Per project beantwoord je de vragen van het sjabloon. Je antwoorden bepalen welke stukken in het rapport komen en wat erin staat.</p></li>
+        <li><h3>Per vraag een voorstel, met bron en citaat</h3><p>Het systeem leest de stukken van het project en stelt per vraag een antwoord voor, met de bron en het letterlijke citaat erbij. Jij bevestigt of past aan.</p></li>
+        <li><h3>Eerdere rapporten als voorbeeld erbij</h3><p>Het systeem zoekt rapporten over een situatie die op de jouwe lijkt: in jullie eigen archief en in de openbare rapporten die wij hebben verzameld.</p></li>
+        <li><h3>Nagekeken op citaat, getal en regel</h3><p>Staat het citaat echt in de bron? Staan de getallen er ook? Zegt de tekst niets wat jij niet hebt geantwoord? Een eindcontrole legt het rapport tegen de wet en de rekenwaarden.</p></li>
+        <li><h3>Bevestigen doe jij</h3><p>Het systeem doet voorstellen. Er komt niets definitief in het rapport zonder dat jij het hebt bevestigd, en elke vorige versie blijft bewaard.</p></li>
+      </ul>
+    </div>
   </div>
 </section>
-
-<section aria-labelledby="kennis">
-  <h2 id="kennis">Je begint niet bij nul</h2>
-  <p class="smal">Wij hebben openbare rapporten verzameld en ingedeeld. Het systeem zoekt daarin naar
-  situaties die op jouw project lijken, en we hebben er al eerste sjablonen uit afgeleid. Zo kunnen we voor
-  jullie vakgebied snel een voorzet maken. Zit jouw vakgebied er nog niet bij, dan bouwen we die verzameling
-  op.</p>
-  <div class="cijfers">
-    <div><b>ruim 1.200</b>akoestische rapporten</div>
-    <div><b>ruim 1.600</b>stukken over stikstof</div>
-    <div><b>ruim 1.100</b>verkeersonderzoeken</div>
+<section class="sectie grijs" aria-labelledby="oplevert">
+  <div class="kader sectie-raster">
+    <p class="marge"><span>02</span>Opbrengst</p>
+    <div class="sectie-inhoud">
+      <h2 id="oplevert">Wat je eraan hebt</h2>
+      <ul class="drie">
+        <li><h3>Minder tijd per rapport</h3>
+          <p>Overtypen, nalopen en zoeken hoe je het de vorige keer deed, neemt het systeem over. Jouw tijd gaat
+          naar het vakinhoudelijke oordeel.</p></li>
+        <li><h3>Elk rapport volgens dezelfde opbouw</h3>
+          <p>Dezelfde opbouw, dezelfde formuleringen en dezelfde vragen, wie het rapport ook maakt.</p></li>
+        <li><h3>Uit te leggen, stuk voor stuk</h3>
+          <p>Bij elk stuk tekst zie je waar het op rust. Dat scheelt bij de interne controle en bij vragen van de
+          opdrachtgever of het bevoegd gezag.</p></li>
+      </ul>
+    </div>
   </div>
-  <p class="voetnoot">Openbare stukken onder de Omgevingswet, stand november 2026.</p>
 </section>
-
-<section class="oproep" aria-labelledby="voorzet">
-  <h2 id="voorzet">Zien hoe dit er bij jullie uitziet?</h2>
-  <p class="smal">We maken kosteloos een voorzet voor jullie omgeving, op basis van een aantal van jullie eigen
-  rapporten. Daarna komen we hem graag laten zien.</p>
-  <div class="acties"><a class="knop" href="/voorzet/">Vraag een kosteloze voorzet aan</a></div>
+<section class="sectie" aria-labelledby="nu">
+  <div class="kader sectie-raster">
+    <p class="marge"><span>03</span>Herkenning</p>
+    <div class="sectie-inhoud">
+      <h2 id="nu">Hoe rapporten nu vaak ontstaan</h2>
+      <ul class="lijst">
+          <li>Je schrijft steeds hetzelfde soort rapport, maar elk project is net anders.</li>
+          <li>De inhoud komt uit losse stukken: onderzoeken, berekeningen, tekeningen, de offerte, mails van de
+          opdrachtgever.</li>
+          <li>Veel tijd gaat naar overtypen, nalopen en zoeken hoe je het de vorige keer deed.</li>
+          <li>Je moet achteraf kunnen uitleggen waarom er staat wat er staat.</li>
+        </ul>
+      <p class="verder"><a class="pijl" href="voor-wie/">Past het bij jullie bureau?</a></p>
+    </div>
+  </div>
+</section>
+<section class="sectie grijs" aria-labelledby="kennis">
+  <div class="kader sectie-raster">
+    <p class="marge"><span>04</span>Openbare rapporten</p>
+    <div class="sectie-inhoud">
+      <h2 id="kennis">Een verzameling openbare rapporten om in te zoeken</h2>
+      <p class="tekst">Wij hebben openbare rapporten verzameld en ingedeeld. Het systeem zoekt daarin naar
+      situaties die op jouw project lijken, en we hebben er al eerste sjablonen uit afgeleid. Zo kunnen we voor
+      jullie vakgebied snel een voorzet maken. Zit jouw vakgebied er nog niet bij, dan bouwen we die verzameling
+      op.</p>
+      <dl class="cijfers">
+        <div><dt>akoestische rapporten</dt><dd>ruim 1.200</dd></div>
+        <div><dt>stukken over stikstof</dt><dd>ruim 1.600</dd></div>
+        <div><dt>verkeersonderzoeken</dt><dd>ruim 1.100</dd></div>
+      </dl>
+      <p class="noot">Openbare stukken onder de Omgevingswet, stand november 2026.</p>
+    </div>
+  </div>
+</section>
+<section class="oproep" aria-labelledby="oproep-kop">
+  <div class="kader oproep-binnen">
+    <div>
+      <h2 id="oproep-kop">Bekijk het op een aantal van jullie eigen rapporten</h2>
+      <p>We maken kosteloos een voorzet voor jullie omgeving, op basis van een aantal van jullie eigen rapporten.
+      Daarna komen we hem graag laten zien.</p>
+    </div>
+    <a class="knop knop-licht" href="voorzet/">Naar de kosteloze voorzet</a>
+  </div>
 </section>
 </main>
-<footer class="voet"><div class="breed">
-  <p>Regelrapport is van Morphy B.V. · KVK 95783652</p>
-  <p><a href="mailto:info@morphy.world">info@morphy.world</a></p>
-  <p><a href="/video/">In beeld</a></p>
-  <p><a href="https://www.morphy.world">www.morphy.world</a></p>
-</div></footer>
+<footer class="voet">
+  <div class="kader voet-binnen">
+    <p class="voet-merk"><svg class="merk-icoon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect x="4" y="2" width="24" height="28" rx="2" fill="#0e4a57"/><path d="M9 10h14M9 15h14M9 20h9" stroke="#fff" stroke-width="2.4"/><circle cx="23" cy="21" r="3" fill="#f0a35e"/></svg><span>Regelrapport is van Morphy B.V. · KVK 95783652</span></p>
+    <ul>
+      <li><a href="mailto:info@morphy.world">info@morphy.world</a></li>
+      <li><a href="https://www.morphy.world">www.morphy.world</a></li>
+    </ul>
+  </div>
+</footer>
 </body>
 </html>
