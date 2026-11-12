@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Zo maak je een rapport · Regelrapport</title>
-<meta name="description" content="Eén rapport in elf stappen: sjabloon kiezen, stukken aanleveren, antwoorden bevestigen, de tekst bewerken en laten nakijken. Een verzonnen voorbeeld.">
+<meta name="description" content="Eén rapport in elf stappen: sjabloon kiezen, stukken aanleveren, antwoorden bevestigen, de tekst bewerken en laten nakijken. Een fictief voorbeeld.">
 <style>
 /* Video A: de eindgebruiker loopt door één werkstuk. Een nagebouwd, vereenvoudigd venster in de kleuren van de
    proeftuin. Elke scène is een rij stappen; de eindtoestand van scène N is alle stappen tot en met N, direct gezet.
@@ -309,7 +309,7 @@ html.embed .kop,html.embed .voet a{display:none}
     <div class="stippen" id="stippen" role="group" aria-label="Ga naar een stap"></div>
   </div>
   <footer class="voet">
-    <span>Verzonnen voorbeeld: het project, de stukken en de rapporten bestaan niet.</span>
+    <span>Fictief voorbeeld</span>
     <a href="/">Terug naar regelrapport.nl</a>
   </footer>
 </div>
@@ -326,7 +326,6 @@ const VENSTER = `<div id="laag">
 <section class="paneel p-start">
   <div class="kaart nieuw-ws">
     <h2>Nieuw werkstuk</h2>
-    <div class="zacht">Een werkstuk is één rapport in wording.</div>
     <label>Naam</label><div class="veld" id="naam"></div>
     <label>Sjabloon</label><div class="veld kies" id="sjab"><span>Kies een sjabloon</span></div>
     <ul class="dd">
@@ -340,7 +339,6 @@ const VENSTER = `<div id="laag">
 
 <section class="paneel p-context">
   <h2>Context</h2>
-  <div class="zacht">De stukken waar het rapport op rust. Het systeem leest alleen wat hier staat.</div>
   <div class="slots">
     <div class="slot" id="s-off"><h3>Offerte</h3>
       <div class="st"><span class="nee">Ontbreekt nog. Sleep het bestand hierheen.</span><span class="ja">✓ aangeleverd</span></div>
@@ -359,7 +357,7 @@ const VENSTER = `<div id="laag">
   <div class="twee">
     <div>
       <div class="werkbalk"><span class="knop" id="voorzet">Voorzet ophalen</span>
-        <span class="tekst zacht"><span class="a">4 vragen van het sjabloon. Nog geen antwoorden.</span><span class="b">De stukken worden gelezen …</span><span class="c">Voorzet uit 2 stukken. Geel is een voorstel, groen is bevestigd.</span></span></div>
+        <span class="tekst zacht"><span class="a">4 vragen</span><span class="b">Stukken worden gelezen …</span><span class="c">Geel is een voorstel, groen is bevestigd.</span></span></div>
 
       <div class="vraag leeg" data-q="1" id="q1">
         <div class="vkop"><span class="nr">1a</span>Wat wordt er gebouwd?</div>

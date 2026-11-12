@@ -127,7 +127,7 @@ def scene(soort, titel_id="", onderschrift=""):
         </ol>
         <svg class="pijlen" aria-hidden="true" focusable="false"></svg>
       </div>
-      <figcaption>Verzonnen voorbeeld, om te laten zien hoe het werkt.{onderschrift}</figcaption>
+      <figcaption>Fictief voorbeeld.{onderschrift}</figcaption>
     </figure>"""
 
 
@@ -270,7 +270,7 @@ pagina("hoe-het-werkt", "Hoe het werkt",
 <section class="held held-smal">
   <div class="kader">
     <p class="boven">Werkwijze</p>
-    <h1>Eén keer een sjabloon van vaste tekst en vragen, daarna doorloopt elk rapport dezelfde stappen.</h1>
+    <h1>Eerst het sjabloon, daarna elk rapport in dezelfde stappen.</h1>
     <p class="intro">Een sjabloon bestaat bij ons uit twee delen: de vaste tekst van jullie rapporten, en de vragen
     die bepalen wat er in een rapport komt. Dat leggen we één keer goed vast. Daarna doorloopt elk nieuw rapport
     dezelfde stappen, en kost een rapport je minder tijd.</p>
@@ -345,7 +345,7 @@ pagina("herkomst-en-controle", "Herkomst en controle",
      "nooit uit de wet."),
     ("Geschreven passages",
      "Worden geschreven uit jouw antwoorden. Bij elke passage zie je welke antwoorden erin zitten. Eerdere "
-     "rapporten, uit jullie archief en uit de openbare verzameling, geven de vorm, niet de feiten."),
+     "rapporten, uit jullie archief en uit de openbare verzameling, bepalen alleen de vorm. De feiten komen uit jouw antwoorden."),
     ("Wet- en regelgeving",
      "De geldende tekst, zoals de Omgevingswet, het Bkl en het Bbl, met de toelichting erbij."),
 ]), " grijs") + sectie("03", "Controle", "controle", "Zes punten die worden nagekeken", """<ol class="vragen">
@@ -357,10 +357,10 @@ pagina("herkomst-en-controle", "Herkomst en controle",
         getest, tot jij akkoord geeft.</li>
         <li>Klopt het rapport met de wet en met de rekenwaarden? Dat doet de eindcontrole.</li>
       </ol>
-      <p class="nadruk">De eindcontrole is een tweede beoordelaar, geen garantie. Hij laat zien wat hij heeft
+      <p class="nadruk">De eindcontrole kijkt als tweede beoordelaar mee, maar garandeert niets. Hij laat zien wat hij heeft
       getoetst. Wat niet is beoordeeld, telt niet als akkoord.</p>""") + sectie(
-    "04", "Vastleggen", "afwegingen", "Geen stille keuzes, en alles blijft bewaard", """<div class="twee">
-        <p class="tekst">Twijfel wordt een vraag aan jou, geen stille keuze. Wat het systeem niet kan vinden,
+    "04", "Vastleggen", "afwegingen", "Elke keuze is zichtbaar en alles blijft bewaard", """<div class="twee">
+        <p class="tekst">Bij twijfel krijg jij een vraag. Wat het systeem niet kan vinden,
         blijft open, met de reden erbij. Jouw besluiten worden vastgelegd, met wie en wanneer.</p>
         <p class="tekst">Alles wat het systeem heeft gedaan, blijft bewaard: wat het las, wat het voorstelde en wat
         jij ermee deed. Zo kun je later nagaan waarom er staat wat er staat.</p>
@@ -400,7 +400,7 @@ pagina("voor-wie", "Voor wie",
           je snel of het bij jullie werkt.</p></li>
       </ul>""", " grijs") + sectie("03", "Stand", "stand", "Per vakgebied opgebouwd, samen met het bureau",
     """<p class="tekst">We bouwen dit per vakgebied op, samen met het bureau. Elk sjabloon heeft punten waar jullie
-      vakkennis en soms een jurist over beslissen. Die punten laten we zien. We lossen ze niet stil op.</p>""")
+      vakkennis en soms een jurist over beslissen. Die punten leggen we aan jullie voor.</p>""")
   + oproep())
 
 # ------------------------------------------------------------------ voorzet
