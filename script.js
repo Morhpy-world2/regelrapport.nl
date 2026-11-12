@@ -165,3 +165,13 @@ addEventListener("message", function (e) {
     if (f.contentWindow === e.source) { f.style.aspectRatio = "auto"; f.style.height = h + "px"; }
   });
 });
+
+/* menu op de telefoon */
+(function () {
+  var knop = document.querySelector(".menu-knop"), lijst = document.getElementById("menu");
+  if (!knop || !lijst) return;
+  knop.addEventListener("click", function () {
+    var open = lijst.classList.toggle("open");
+    knop.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+})();

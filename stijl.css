@@ -101,6 +101,21 @@ a:hover { color: var(--petrol-donker); text-decoration-thickness: 2px; }
   text-decoration: none; text-align: center;
 }
 .knop:hover { background: var(--petrol-donker); border-color: var(--petrol-donker); color: #fff; }
+.menu-knop {
+  display: none; align-items: center; gap: 8px; min-height: 40px; padding: 6px 12px;
+  font: inherit; font-size: 0.9rem; font-weight: 600; color: var(--inkt); background: var(--papier);
+  border: 1px solid var(--lijn); border-radius: 3px; cursor: pointer;
+}
+.menu-streepjes, .menu-streepjes::before, .menu-streepjes::after {
+  display: block; width: 16px; height: 2px; background: currentColor; border-radius: 1px;
+}
+.menu-streepjes { position: relative; }
+.menu-streepjes::before, .menu-streepjes::after { content: ""; position: absolute; left: 0; }
+.menu-streepjes::before { top: -5px; }
+.menu-streepjes::after { top: 5px; }
+.menu-knop[aria-expanded="true"] .menu-streepjes { background: transparent; }
+.menu-knop[aria-expanded="true"] .menu-streepjes::before { top: 0; transform: rotate(45deg); }
+.menu-knop[aria-expanded="true"] .menu-streepjes::after { top: 0; transform: rotate(-45deg); }
 .knop-klein { min-height: 40px; padding: 8px 16px; font-size: 0.95rem; }
 .knop-klein[aria-current="page"] { background: var(--petrol-donker); border-color: var(--petrol-donker); }
 .knop-rand { background: transparent; color: var(--petrol); }
@@ -387,11 +402,20 @@ a:hover { color: var(--petrol-donker); text-decoration-thickness: 2px; }
 @media (max-width: 640px) {
   body { font-size: 16px; }
   .kop-binnen { min-height: 0; }
-  .nav { width: 100%; justify-content: space-between; }
-  .nav ul { gap: 2px 18px; }
-  .nav ul a { font-size: 0.93rem; }
+  /* telefoon: merk links, knop en menuknop rechts; de links klappen eronder uit */
+  .kop-binnen { flex-wrap: wrap; gap: 0 10px; padding-top: 10px; padding-bottom: 10px; }
+  .merk { margin-right: auto; }
+  .nav { display: contents; }
+  .js .menu-knop { display: inline-flex; order: 2; }
+  .nav .knop-klein { order: 4; width: 100%; margin-top: 6px; }
+  .js .nav ul:not(.open) + .knop-klein { display: none; }
+  .nav ul { order: 3; width: 100%; flex-direction: column; gap: 0; margin-top: 10px; border-top: 1px solid var(--lijn); }
+  .js .nav ul { display: none; }
+  .js .nav ul.open { display: flex; }
+  .nav ul li + li { border-top: 1px solid var(--lijn); }
+  .nav ul a { display: block; padding: 13px 2px; font-size: 1rem; border-bottom: 0; }
+  .nav ul a[aria-current="page"] { color: var(--petrol); }
   .knop { width: 100%; }
-  .nav .knop-klein { width: auto; }
   .acties .pijl { width: 100%; }
   .oproep .knop { width: 100%; }
   .cijfers { grid-template-columns: 1fr; }

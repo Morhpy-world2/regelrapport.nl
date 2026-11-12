@@ -73,7 +73,8 @@ def pagina(slug, titel, omschrijving, inhoud):
   <div class="kader kop-binnen">
     <a class="merk" href="{thuis}"{' aria-current="page"' if slug == "" else ""}>{MERK}<span>{NAAM}</span></a>
     <nav class="nav" aria-label="Hoofdmenu">
-      <ul>{menu}</ul>
+      <button class="menu-knop" type="button" aria-expanded="false" aria-controls="menu"><span class="menu-streepjes" aria-hidden="true"></span>Menu</button>
+      <ul id="menu">{menu}</ul>
       <a class="knop knop-klein" href="{r}voorzet/"{voorzet_cur}>Kosteloze voorzet</a>
     </nav>
   </div>
