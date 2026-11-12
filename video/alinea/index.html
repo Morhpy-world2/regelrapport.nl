@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eén alinea, en alles wat erachter zit · Regelrapport</title>
+<meta name="description" content="Animatie: klik in een rapport op één alinea en zie waar elk deel op rust: het sjabloon, de stukken van het project, de wet en eerdere rapporten.">
+<style>
+  /* Eén plaat van 1600 × 900 eenheden die meeschaalt. Kleuren van de proeftuin, bewust één licht thema.
+     Elke scène is een toestand (klassen v1..v7 op #film, b1..b4 voor de vier bronnen); de animatie is alleen de overgang. */
+  :root {
+    --merk: #6b1a7d; --merk-700: #541462; --merk-200: #d7bddf; --merk-100: #e6d3eb; --merk-50: #f3e8f5;
+    --g50: #fcfbfd; --g100: #f4f1f5; --g200: #e8e4ea; --g300: #d6d0d9; --g500: #6b6570; --g700: #3d3742; --g800: #28232c;
+    --groen: #1d7f37; --groen-50: #e9f8ed; --groen-100: #c9ecd3;
+    --amber: #9a5600; --amber-50: #fff4e2; --amber-100: #ffe8b8; --amber-200: #ffd28a;
+    --rood: #b42318;
+    --blauw: #2456a6; --blauw-50: #eaf1fb; --blauw-100: #d3e2f7;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--g50); color: var(--g800); }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 16px; line-height: 1.45;
+    padding: 14px max(16px, env(safe-area-inset-right, 0px)) 22px max(16px, env(safe-area-inset-left, 0px)); }
+  a { color: var(--merk); }
+  .kop { max-width: 1298px; margin: 0 auto 10px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 18px; }
+  .kop h1 { margin: 0; font-size: 22px; line-height: 1.2; font-weight: 700; color: var(--g800); }
+  .kop p { margin: 0; color: var(--g500); font-size: 15px; }
+
+  .kader { position: relative; width: min(100%, calc((100vh - 190px) * 16 / 9)); min-width: 280px; aspect-ratio: 16 / 9; margin: 0 auto;
+    background: #fff; border: 1px solid var(--g200); border-radius: 12px; overflow: hidden; }
+  .stage { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; }
+  .stage > * { position: absolute; }
+  svg.laag { left: 0; top: 0; width: 1600px; height: 900px; overflow: visible; pointer-events: none; }
+  #lijnen { z-index: 1; } #agents { z-index: 8; }
+
+  /* bijschrift in de plaat */
+  .band { left: 0; right: 0; top: 22px; display: flex; justify-content: center; z-index: 9; pointer-events: none; }
+  .band span { background: var(--g800); color: #fff; font-size: 27px; font-weight: 600; line-height: 1.25; padding: 12px 24px; border-radius: 10px;
+    max-width: 1180px; text-align: center; transition: opacity .35s, background .5s; }
+  .band span.weg { opacity: 0; }
+  .is7 .band span { background: var(--merk); }
+
+  /* lijnen */
+  .lijn { fill: none; stroke: var(--g300); stroke-width: 3; stroke-dasharray: 8 8; stroke-linecap: round; opacity: 0; transition: opacity .7s; }
+  .v2 #l-vel, .b1 #l-sjabloon, .b2 #l-offerte, .b3 #l-reken, .b4 #l-wet, .v4 #l-veld, .v4 #l-vb, .lijn.op { opacity: 1; }
+  #l-sjabloon { stroke: var(--merk); } #l-offerte { stroke: var(--groen); } #l-reken { stroke: var(--blauw); } #l-wet { stroke: var(--g700); }
+  #l-veld, #l-vb, #l-vel { stroke: var(--merk-200); }
+
+  /* het rapport: eerst groot in het midden, daarna klein bovenaan */
+  .vel { left: 560px; top: 150px; width: 480px; height: 680px; background: #fff; border: 1.5px solid var(--g300); border-radius: 6px; padding: 30px 34px;
+    box-shadow: 0 10px 34px rgba(40, 35, 44, .13); transform-origin: 50% 0; opacity: 0; z-index: 3;
+    transition: transform 1.1s cubic-bezier(.6, .05, .3, 1), opacity .7s, box-shadow .7s; }
+  .v1 .vel { opacity: 1; }
+  .v2 .vel { transform: translateY(-50px) scale(.25); box-shadow: 0 6px 20px rgba(40, 35, 44, .25); }
+  .vel .doc-kop { font-size: 12px; color: var(--g500); letter-spacing: .04em; text-transform: uppercase; }
+  .vel .doc-titel { font-size: 19px; font-weight: 700; margin: 2px 0 16px; }
+  .vel h2 { font-size: 16px; margin: 16px 0 8px; font-weight: 700; }
+  .vel i { display: block; height: 7px; border-radius: 4px; background: var(--g200); margin: 8px 0; }
+  .vel i.k { width: 62%; } .vel i.m { width: 84%; }
+  .vel .para { font-size: 14.5px; line-height: 1.5; margin: 10px -8px; padding: 6px 8px; border-radius: 5px; border: 1.5px solid transparent; transition: background .3s, border-color .3s; }
+  .vel .para.wijs, .v2 .vel .para { background: var(--merk-50); border-color: var(--merk); }
+  .v2 .vel .para { background: var(--merk-200); }
+  .vel .tabel { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 5px; margin: 12px 0; }
+  .vel .tabel b { height: 13px; background: var(--g100); border: 1px solid var(--g200); border-radius: 2px; }
+
+  /* de alinea, groot */
+  .alinea { left: 450px; top: 300px; width: 700px; background: #fff; border: 2px solid var(--merk); border-radius: 12px; padding: 20px 30px 16px;
+    box-shadow: 0 14px 40px rgba(84, 20, 98, .18); opacity: 0; transform: translateY(18px) scale(.96); z-index: 4;
+    transition: opacity .6s, transform .7s cubic-bezier(.3, .8, .3, 1); }
+  .v2 .alinea { opacity: 1; transform: none; }
+  .alinea .waar { font-size: 15px; color: var(--g500); letter-spacing: .03em; text-transform: uppercase; margin-bottom: 8px; }
+  .alinea p { margin: 0; font-size: 26px; line-height: 1.5; }
+  .alinea p span { border-radius: 4px; padding: 1px 2px; box-shadow: inset 0 -3px 0 transparent; transition: background .5s, box-shadow .5s; }
+  .b1 .w-vast { background: var(--merk-50); box-shadow: inset 0 -3px 0 var(--merk-200); }
+  .b2 .w-straat { background: var(--groen-100); box-shadow: inset 0 -3px 0 var(--groen); }
+  .b3 .w-waarde { background: var(--blauw-100); box-shadow: inset 0 -3px 0 var(--blauw); }
+  .b4 .w-toets { background: var(--g200); box-shadow: inset 0 -3px 0 var(--g700); }
+  .alinea p .w-nieuw { background: var(--groen-100); box-shadow: inset 0 -3px 0 var(--groen); animation: nieuw 1.2s ease; }
+  @keyframes nieuw { 0% { background: var(--amber-200); } 100% { background: var(--groen-100); } }
+  .alinea .versies { margin-top: 12px; display: flex; gap: 8px; align-items: center; font-size: 15px; color: var(--g500); min-height: 28px; }
+  .chip { display: inline-block; font-size: 14.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--g100); color: var(--g700); border: 1px solid var(--g200); white-space: nowrap; }
+  .chip.groen { background: var(--groen-50); color: var(--groen); border-color: var(--groen-100); }
+  .chip.merk { background: var(--merk-50); color: var(--merk); border-color: var(--merk-100); }
+  .chip.amber { background: var(--amber-50); color: var(--amber); border-color: var(--amber-200); }
+  .versies .v2c, .versies .bew { display: none; }
+  .v6 .versies .v2c, .v6 .versies .bew { display: inline-block; }
+  .v6 .versies .v1c { display: none; }
+
+  /* bronkaarten rond de alinea */
+  .bron { width: 330px; background: #fff; border: 1.5px solid var(--g300); border-top-width: 5px; border-radius: 10px; padding: 14px 18px; font-size: 17px; line-height: 1.4; z-index: 3;
+    opacity: .3; filter: grayscale(1); transition: opacity .7s, filter .7s, transform .7s cubic-bezier(.3, .8, .3, 1), box-shadow .7s; }
+  .bron h3 { margin: 0; font-size: 20px; font-weight: 700; }
+  .bron .sub { font-size: 14.5px; color: var(--g500); margin-bottom: 8px; }
+  .bron .chip { margin-top: 9px; }
+  .bron .noot { display: none; font-size: 18px; }
+  .is7 .bron .detail { display: none; } .is7 .bron .noot { display: block; }
+  #k-sjabloon { left: 50px; top: 120px; height: 208px; border-top-color: var(--merk); }
+  #k-offerte { left: 50px; top: 350px; height: 204px; border-top-color: var(--groen); }
+  #k-reken { left: 1220px; top: 120px; height: 228px; border-top-color: var(--blauw); }
+  #k-wet { left: 1220px; top: 380px; height: 212px; border-top-color: var(--g700); }
+  .b1 #k-sjabloon, .b2 #k-offerte, .b3 #k-reken, .b4 #k-wet { opacity: 1; filter: none; box-shadow: 0 8px 24px rgba(40, 35, 44, .1); }
+  .citaat { margin: 0; padding: 7px 10px; border-left: 3px solid var(--g300); background: var(--g100); border-radius: 0 6px 6px 0; font-size: 16px; }
+  #k-sjabloon .citaat { border-left-color: var(--merk); background: var(--merk-50); }
+  #k-offerte .citaat { border-left-color: var(--groen); background: var(--groen-50); }
+  #k-offerte mark { background: var(--groen-100); color: inherit; padding: 0 2px; border-radius: 3px; box-shadow: inset 0 -2px 0 var(--groen); }
+  .veld { color: var(--merk); font-weight: 600; }
+  table.rek { border-collapse: collapse; width: 100%; font-size: 16px; }
+  table.rek th { text-align: left; font-weight: 600; color: var(--g500); font-size: 14px; padding: 2px 6px; border-bottom: 1px solid var(--g200); }
+  table.rek td { padding: 3px 6px; border-bottom: 1px solid var(--g100); }
+  table.rek tr.hit td { background: var(--blauw-100); font-weight: 700; box-shadow: inset 0 -2px 0 var(--blauw); }
+  .plek { margin-top: 7px; font-size: 14.5px; color: var(--g500); }
+  .som { margin-top: 8px; font-size: 17px; font-weight: 600; }
+  .som em { font-style: normal; background: var(--g200); padding: 1px 6px; border-radius: 4px; }
+
+  /* eerdere rapporten: een veld vol kleine documentjes */
+  .veldrap { left: 450px; top: 622px; width: 700px; height: 256px; background: var(--g100); border: 1.5px solid var(--g200); border-radius: 12px; padding: 14px 20px; z-index: 2;
+    opacity: 0; filter: grayscale(1); transition: opacity .7s, filter .7s; }
+  .v2 .veldrap { opacity: .32; }
+  .v4 .veldrap, .veldrap.op { opacity: 1; filter: none; }
+  .veldrap h3 { margin: 0 0 8px; font-size: 20px; }
+  .veldrap h3 small { font-weight: 400; font-size: 15px; color: var(--g500); margin-left: 8px; }
+  .veldrap .noot { display: none; font-weight: 400; font-size: 16px; color: var(--g700); margin-left: 8px; }
+  .is7 .veldrap h3 small { display: none; } .is7 .veldrap .noot { display: inline; }
+  .groepen { display: flex; gap: 26px; align-items: flex-start; }
+  .groep .docs { display: grid; gap: 4px; }
+  #archief .docs { grid-template-columns: repeat(7, 10px); }
+  #openbaar .docs { grid-template-columns: repeat(34, 10px); }
+  .doc { width: 10px; height: 13px; background: #fff; border: 1px solid var(--g300); border-radius: 2px; transition: transform .4s, background .4s, border-color .4s, box-shadow .4s; }
+  .v4 .doc.gelijk, .doc.op { background: var(--merk); border-color: var(--merk-700); transform: scale(2); box-shadow: 0 0 0 3px var(--merk-100); position: relative; z-index: 2; }
+  .groep p { white-space: nowrap; margin: 9px 0 0; font-size: 15.5px; color: var(--g700); font-weight: 600; }
+
+  /* kaart uit een vergelijkbaar rapport, en het oordeel */
+  .los { width: 330px; height: 248px; top: 630px; background: #fff; border: 1.5px solid var(--g300); border-radius: 10px; padding: 14px 18px; font-size: 17px; line-height: 1.4; z-index: 3;
+    opacity: 0; transform: translateY(14px); transition: opacity .6s, transform .6s; box-shadow: 0 8px 24px rgba(40, 35, 44, .1); }
+  .los h3 { margin: 0; font-size: 19px; }
+  .los .sub { font-size: 14.5px; color: var(--g500); margin-bottom: 8px; }
+  #voorbeeld { left: 1220px; border-top: 5px solid var(--merk-200); }
+  #voorbeeld .citaat { border-left-color: var(--merk-200); }
+  #voorbeeld .vorm { margin-top: 8px; font-size: 15px; color: var(--g500); }
+  .v4 #voorbeeld, .v5 #oordeel, .los.op { opacity: 1; transform: none; }
+  #oordeel { left: 50px; top: 584px; height: 292px; border-top: 5px solid var(--amber-200); }
+  #oordeel ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 7px; }
+  #oordeel li { display: flex; gap: 8px; align-items: flex-start; opacity: 0; transition: opacity .5s; font-size: 16.5px; }
+  .v5 #oordeel li, #oordeel li.op { opacity: 1; }
+  #oordeel li b { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; background: var(--groen-100); color: var(--groen); margin-top: 1px; }
+  #oordeel li.voorstel { background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 7px 9px; flex-wrap: wrap; transition: opacity .5s, background .5s, border-color .5s; }
+  #oordeel li.voorstel b { background: var(--amber-200); color: var(--amber); }
+  #oordeel .neem { margin-left: 30px; font-size: 14.5px; font-weight: 700; background: var(--merk); color: #fff; border-radius: 6px; padding: 3px 11px; }
+  #oordeel .klaar { display: none; margin-left: 30px; font-size: 14.5px; font-weight: 700; color: var(--groen); }
+  .v6 #oordeel li.voorstel { background: var(--groen-50); border-color: var(--groen-100); }
+  .v6 #oordeel li.voorstel b { background: var(--groen-100); color: var(--groen); }
+  .v6 #oordeel .neem { display: none; } .v6 #oordeel .klaar { display: inline; }
+
+  /* jij: de vraag */
+  .jij { left: 884px; top: 196px; width: 266px; display: flex; gap: 10px; align-items: center; background: var(--merk-50); border: 1.5px solid var(--merk-200); border-radius: 14px 14px 4px 14px;
+    padding: 10px 14px; font-size: 18px; font-weight: 600; z-index: 5; opacity: 0; transform: translateY(8px); transition: opacity .5s, transform .5s; }
+  .jij .wie { flex: none; width: 38px; height: 38px; border-radius: 50%; background: var(--merk); color: #fff; display: grid; place-items: center; font-size: 14px; font-weight: 700; }
+  .v5 .jij, .jij.op { opacity: 1; transform: none; }
+  .jij .noot { display: none; font-weight: 500; font-size: 16.5px; }
+  .is7 .jij .vraag { display: none; } .is7 .jij .noot { display: inline; }
+
+  /* agent en cursor */
+  .agent { transition: opacity .35s; }
+  .agent .tw { transform-origin: center; transform-box: fill-box; animation: draai 2.4s linear infinite; }
+  @keyframes draai { to { transform: rotate(360deg); } }
+  .cursor { width: 34px; height: 34px; left: 1180px; top: 700px; z-index: 10; opacity: 0; pointer-events: none; transition: left 1.1s cubic-bezier(.5, .1, .3, 1), top 1.1s cubic-bezier(.5, .1, .3, 1), opacity .3s; }
+  .cursor.aan { opacity: 1; }
+  .cursor::after { content: ""; position: absolute; left: -14px; top: -14px; width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--merk); opacity: 0; }
+  .cursor.klik::after { animation: klik .55s ease-out; }
+  @keyframes klik { 0% { opacity: .9; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.5); } }
+
+  /* onder de plaat */
+  .onder { max-width: 1298px; margin: 10px auto 0; }
+  .bij-los { display: none; margin: 0 0 10px; font-size: 18px; font-weight: 600; line-height: 1.35; min-height: 3.2em; }
+  .knoppen { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+  .knoppen button { font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; background: #fff; color: var(--g800); border: 1.5px solid var(--g300); border-radius: 8px; padding: 6px 14px; }
+  .knoppen button:hover { border-color: var(--merk); color: var(--merk); }
+  button:focus-visible, a:focus-visible { outline: 3px solid var(--merk); outline-offset: 2px; }
+  .stippen { display: flex; gap: 2px; margin: 0; padding: 0; list-style: none; }
+  .stippen button { border: 0; background: none; padding: 8px 6px; border-radius: 8px; }
+  .stippen button i { display: block; width: 26px; height: 8px; border-radius: 4px; background: var(--g300); transition: background .3s; }
+  .stippen button[aria-current="true"] i { background: var(--merk); }
+  .stippen button.geweest i { background: var(--merk-200); }
+  .klein { margin-left: auto; color: var(--g500); font-size: 14px; }
+  .slot { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; visibility: hidden; opacity: 0; transition: opacity .6s; }
+  .is7 .slot { visibility: visible; opacity: 1; }
+  .slot .cta { background: var(--merk); color: #fff; text-decoration: none; font-weight: 700; padding: 10px 20px; border-radius: 8px; }
+  .slot .cta:hover { background: var(--merk-700); }
+
+  .stage.stil, .stage.stil * { transition: none !important; animation: none !important; }
+  @media (max-width: 760px) {
+    .band { display: none; }
+    .bij-los { display: block; }
+    .kader { width: 100%; }
+    .klein { margin-left: 0; width: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition-property: opacity !important; transition-duration: .3s !important; }
+    .agent, .cursor { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div id="film">
+<header class="kop">
+  <h1>Eén alinea, en alles wat erachter zit</h1>
+  <p>Het rapport is af. We lopen van één stuk tekst terug naar waar het op rust.</p>
+</header>
+
+<div class="kader" id="kader">
+<div class="stage" id="stage" role="img" aria-label="Animatie. In een rapport dat af is, wordt één alinea aangeklikt. Van elk deel van die alinea is te zien waar het op rust: de vaste formulering komt uit het sjabloon, de straatnaam uit de offerte, de geluidbelasting uit de rekenresultaten en de toets aan de standaardwaarde uit de wet. Daarna worden eerdere rapporten erbij gezocht, wordt de alinea nagekeken en wordt een voorstel overgenomen. Elke versie blijft bewaard.">
+  <svg class="laag" id="lijnen" viewBox="0 0 1600 900" aria-hidden="true">
+    <path class="lijn" id="l-vel" d="M800,272 L800,300"/>
+    <path class="lijn" id="l-sjabloon"/><path class="lijn" id="l-offerte"/><path class="lijn" id="l-reken"/><path class="lijn" id="l-wet"/>
+    <path class="lijn" id="l-veld" d="M800,560 L800,622"/>
+    <path class="lijn" id="l-vb" d="M1150,750 L1220,750"/>
+  </svg>
+
+  <div class="band" aria-hidden="true"><span id="band"></span></div>
+
+  <div class="vel" id="vel" aria-hidden="true">
+    <div class="doc-kop">Akoestisch onderzoek wegverkeer</div>
+    <div class="doc-titel">Twaalf woningen Dorpsstraat</div>
+    <h2>5 Resultaten</h2>
+    <i></i><i class="m"></i><i class="k"></i>
+    <p class="para" id="para">Op de gevels aan de Dorpsstraat is de geluidbelasting ten hoogste 54 dB. Daarmee wordt de standaardwaarde van 53 dB overschreden.</p>
+    <i></i><i class="m"></i>
+    <div class="tabel"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>
+    <i class="m"></i><i></i><i class="k"></i>
+    <h2>6 Conclusie</h2>
+    <i></i><i class="m"></i><i></i><i class="k"></i>
+    <h2>7 Maatregelen</h2>
+    <i class="m"></i><i></i><i class="k"></i>
+  </div>
+
+  <div class="jij" id="jij" aria-hidden="true"><span class="wie">Jij</span><span class="vraag">Klopt deze alinea?</span><span class="noot">Jij bevestigt, herschrijft en beslist.</span></div>
+
+  <div class="alinea" id="alinea" aria-hidden="true">
+    <div class="waar">Uit hoofdstuk 5 · Resultaten</div>
+    <p id="tekst"></p>
+    <div class="versies"><span class="chip v1c">versie 1</span><span class="chip groen v2c">versie 2</span><span class="bew">· versie 1 bewaard</span></div>
+  </div>
+
+  <div class="bron" id="k-sjabloon" aria-hidden="true">
+    <h3>Sjabloon</h3>
+    <div class="detail">
+      <div class="sub">Vaste tekst uit jullie sjabloon</div>
+      <p class="citaat">Op de gevels aan de <span class="veld">[weg]</span> is de geluidbelasting ten hoogste <span class="veld">[waarde]</span>.</p>
+      <span class="chip merk">staat zo in 18 van jullie 20 rapporten</span>
+    </div>
+    <p class="noot">De vaste tekst en de vragen, afgeleid uit jullie eigen rapporten.</p>
+  </div>
+
+  <div class="bron" id="k-offerte" aria-hidden="true">
+    <h3>Offerte</h3>
+    <div class="detail">
+      <div class="sub">Stuk van het project</div>
+      <p class="citaat">“… akoestisch onderzoek voor de bouw van twaalf grondgebonden woningen aan de <mark>Dorpsstraat</mark> …”</p>
+      <span class="chip groen">✓ door jou bevestigd</span>
+    </div>
+    <p class="noot"><b>Stukken van het project.</b> Elk gegeven met de bron en het letterlijke citaat, door jou bevestigd.</p>
+  </div>
+
+  <div class="bron" id="k-reken" aria-hidden="true">
+    <h3>Rekenresultaten</h3>
+    <div class="detail">
+      <div class="sub">Stuk van het project</div>
+      <table class="rek"><tr><th>Gevel</th><th>Geluidbelasting</th></tr>
+        <tr><td>Noord</td><td>51 dB</td></tr>
+        <tr class="hit"><td>West, Dorpsstraat</td><td>54 dB</td></tr>
+        <tr><td>Zuid</td><td>49 dB</td></tr></table>
+      <div class="plek">Plek in het bestand: tabel gevels, rij 2</div>
+    </div>
+    <p class="noot"><b>Stukken van het project.</b> Elk getal met de plek in het bestand waar het staat.</p>
+  </div>
+
+  <div class="bron" id="k-wet" aria-hidden="true">
+    <h3>Wet</h3>
+    <div class="detail">
+      <div class="sub">Besluit kwaliteit leefomgeving (Bkl)</div>
+      <p class="citaat">Standaardwaarde wegverkeer: 53 dB</p>
+      <div class="som">54 dB &gt; 53 dB: <em>overschreden</em></div>
+      <span class="chip">uitgerekend volgens de regel</span>
+    </div>
+    <p class="noot">De tekst die nu geldt. Wat te berekenen is, wordt uitgerekend volgens de regel.</p>
+  </div>
+
+  <div class="veldrap" id="veldrap" aria-hidden="true">
+    <h3>Eerdere rapporten<small>hoe is een vergelijkbare situatie eerder beschreven?</small><span class="noot">Ze geven de vorm, niet de feiten.</span></h3>
+    <div class="groepen">
+      <div class="groep" id="archief"><div class="docs"></div><p>jullie eigen archief</p></div>
+      <div class="groep" id="openbaar"><div class="docs"></div><p>ruim 1.200 openbare akoestische rapporten</p></div>
+    </div>
+  </div>
+
+  <div class="los" id="oordeel" aria-hidden="true">
+    <h3>Nagekeken</h3>
+    <ul>
+      <li><b>✓</b><span>Het citaat staat letterlijk in de offerte.</span></li>
+      <li><b>✓</b><span>54 dB staat in de rekenresultaten.</span></li>
+      <li class="voorstel"><b>!</b><span>Voorstel: noem de overschrijding, 1 dB. Eerdere rapporten doen dat ook.</span>
+        <span class="neem" id="neem">Neem over</span><span class="klaar">✓ overgenomen</span></li>
+    </ul>
+  </div>
+
+  <div class="los" id="voorbeeld" aria-hidden="true">
+    <h3>Uit een vergelijkbaar rapport</h3>
+    <div class="sub">Woningbouw langs een gemeentelijke weg</div>
+    <p class="citaat">“De geluidbelasting bedraagt ten hoogste 55 dB. De standaardwaarde wordt met 2 dB overschreden.”</p>
+    <div class="vorm">Je neemt de vorm over, niet de feiten.</div>
+  </div>
+
+  <svg class="laag" id="agents" viewBox="0 0 1600 900" aria-hidden="true"></svg>
+  <svg class="cursor" id="cursor" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 2 L4 19 L8.6 14.8 L11.6 21.6 L14.4 20.4 L11.4 13.7 L17.6 13.4 Z" fill="#28232c" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
+</div>
+</div>
+
+<div class="onder">
+  <p class="bij-los" id="bijlos" aria-live="polite"></p>
+  <div class="knoppen">
+    <button type="button" id="opnieuw">Opnieuw</button>
+    <button type="button" id="pauze">Pauze</button>
+    <ol class="stippen" id="stippen" aria-label="Scènes"></ol>
+    <span class="klein">Verzonnen voorbeeld</span>
+  </div>
+  <div class="slot" id="slot">
+    <a class="cta" href="/voorzet/">Vraag een kosteloze voorzet aan</a>
+    <a href="/">Terug naar regelrapport.nl</a>
+  </div>
+</div>
+</div>
+
+<script>
+/* ── Hier pas je de inhoud aan ─────────────────────────────── */
+const BIJ = [
+  "",
+  "Het rapport is af. Maar waarom staat er wat er staat?",
+  "Klik op een stuk tekst.",
+  "Elk deel van de alinea heeft zijn eigen bron.",
+  "Zo deden eerdere rapporten het.",
+  "Laat een stuk nakijken, tegen de wet en tegen eerdere rapporten.",
+  "Herschrijf zelf of neem een voorstel over. Elke versie blijft bewaard.",
+  "Jij beslist. Het systeem laat zien waarom.",
+];
+const NAMEN = ["", "Het rapport", "Klik op een alinea", "De bronnen", "Eerdere rapporten", "Nakijken", "Herschrijven", "Overzicht"];
+// de vier bronnen van scène 3: bijschrift per stap
+const STAPPEN = [
+  "De vaste formulering komt uit jullie sjabloon.",
+  "De straat komt uit de offerte, met het citaat erbij.",
+  "Het getal komt uit de rekenresultaten.",
+  "De toets aan de norm is uitgerekend volgens de regel.",
+];
+const V1 = '<span class="w-vast" id="w-vast">Op de gevels aan de</span> <span class="w-straat" id="w-straat">Dorpsstraat</span> <span class="w-vast">is de geluidbelasting ten hoogste</span> <span class="w-waarde" id="w-waarde">54 dB</span>. Daarmee wordt de <span class="w-toets" id="w-toets">standaardwaarde van 53 dB overschreden</span>.';
+const V2 = '<span class="w-vast" id="w-vast">Op de gevels aan de</span> <span class="w-straat" id="w-straat">Dorpsstraat</span> <span class="w-vast">is de geluidbelasting ten hoogste</span> <span class="w-waarde" id="w-waarde">54 dB</span>. Daarmee wordt de <span class="w-toets" id="w-toets">standaardwaarde van 53 dB</span> <span class="w-nieuw">met 1 dB</span> <span class="w-toets">overschreden</span>.';
+// hoe lang een scène blijft staan nadat zijn overgang klaar is (ms)
+const RUST = [0, 4200, 3200, 3600, 4200, 4200, 4800, 0];
+// waar de lijn van elk deel van de alinea bij zijn kaart uitkomt (plaat-eenheden 1600 × 900)
+const LIJNEN = [
+  { id: "l-sjabloon", van: "w-vast",   naar: { x: 380, y: 262 } },
+  { id: "l-offerte",  van: "w-straat", naar: { x: 380, y: 452 } },
+  { id: "l-reken",    van: "w-waarde", naar: { x: 1220, y: 290 } },
+  { id: "l-wet",      van: "w-toets",  naar: { x: 1220, y: 485 } },
+];
+const GELIJK = { archief: [9], openbaar: [47, 163, 220] };   // welke documentjes oplichten als vergelijkbaar
+/* ──────────────────────────────────────────────────────────── */
+
+const $ = id => document.getElementById(id);
+const film = $("film"), stage = $("stage"), NS = "http://www.w3.org/2000/svg";
+const RUSTIG = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let run = 0, pauze = false, speelt = false, huidig = 0;
+
+// de plaat schaalt mee met het kader
+function schaal() { stage.style.transform = `scale(${$("kader").clientWidth / 1600})`; }
+new ResizeObserver(schaal).observe($("kader")); schaal();
+
+// documentjes
+function vulDocs(id, n) {
+  const d = $(id).querySelector(".docs");
+  d.innerHTML = Array.from({ length: n }, (_, i) => `<i class="doc${GELIJK[id].includes(i) ? " gelijk" : ""}"></i>`).join("");
+}
+vulDocs("archief", 49); vulDocs("openbaar", 238);
+
+// stippen
+$("stippen").innerHTML = NAMEN.slice(1).map((n, i) => `<li><button type="button" data-s="${i + 1}" aria-label="Scène ${i + 1}: ${n}" title="${n}"><i></i></button></li>`).join("");
+function stip(n) {
+  $("stippen").querySelectorAll("button").forEach(b => {
+    const s = +b.dataset.s;
+    b.setAttribute("aria-current", s === n ? "true" : "false");
+    b.classList.toggle("geweest", s < n);
+  });
+}
+
+// wachten dat stilstaat tijdens pauze
+function wacht(ms, ok) {
+  return new Promise(klaar => {
+    let rest = ms, vorig = performance.now();
+    (function tik() {
+      if (!ok()) return klaar();
+      const nu = performance.now();
+      if (!pauze) rest -= nu - vorig;
+      vorig = nu;
+      rest <= 0 ? klaar() : setTimeout(tik, 40);
+    })();
+  });
+}
+
+// element → middelpunt in plaat-eenheden
+function eenheden(el) {
+  const st = stage.getBoundingClientRect(), r = el.getBoundingClientRect(), f = 1600 / st.width;
+  return { x: (r.left + r.width / 2 - st.left) * f, y: (r.top + r.height / 2 - st.top) * f, w: r.width * f, h: r.height * f };
+}
+function tekenLijnen() {
+  for (const l of LIJNEN) {
+    const el = $(l.van); if (!el) continue;
+    const p = eenheden(el);
+    $(l.id).setAttribute("d", `M${p.x.toFixed(0)},${p.y.toFixed(0)} L${l.naar.x},${l.naar.y}`);
+  }
+}
+
+function bijschrift(tekst, direct) {
+  $("bijlos").textContent = tekst;
+  const b = $("band");
+  if (direct || RUSTIG) { b.textContent = tekst; b.classList.toggle("weg", !tekst); return; }
+  b.classList.add("weg");
+  setTimeout(() => { b.textContent = tekst; b.classList.toggle("weg", !tekst); }, 300);
+}
+
+// ── toestand: zet scène n direct in zijn eindbeeld ──
+function toestand(n) {
+  huidig = n;
+  for (let i = 1; i <= 7; i++) film.classList.toggle("v" + i, n >= i);
+  for (let i = 1; i <= 4; i++) film.classList.toggle("b" + i, n >= 3);
+  for (let i = 1; i <= 7; i++) film.classList.toggle("is" + i, n === i);
+  stage.querySelectorAll(".op").forEach(e => e.classList.remove("op"));
+  $("para").classList.remove("wijs");
+  $("agents").innerHTML = "";
+  $("cursor").classList.remove("aan", "klik");
+  $("tekst").innerHTML = n >= 6 ? V2 : V1;
+  tekenLijnen();
+  bijschrift(BIJ[n] || "", true);
+  stip(n);
+}
+
+// ── agent: een rondje dat langs punten rijdt ──
+function maakAgent(p) {
+  const g = document.createElementNS(NS, "g");
+  g.classList.add("agent");
+  g.innerHTML = `<circle r="24" fill="#fff" stroke="#541462" stroke-width="2.6"/>
+    <circle class="tw" r="10" fill="#e6d3eb" stroke="#6b1a7d" stroke-width="6.5" stroke-dasharray="4.2 4.2"/>
+    <circle r="3.6" fill="#fff" stroke="#541462" stroke-width="1.8"/>`;
+  g.setAttribute("transform", `translate(${p.x},${p.y})`);
+  g.style.opacity = 0;
+  $("agents").appendChild(g);
+  requestAnimationFrame(() => g.style.opacity = 1);
+  return g;
+}
+function rij(agent, pts, snelheid, ok) {
+  const seg = pts.slice(1).map((p, i) => Math.hypot(p.x - pts[i].x, p.y - pts[i].y));
+  const totaal = seg.reduce((a, b) => a + b, 0), duur = totaal / snelheid;
+  const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  return new Promise(klaar => {
+    let gedaan = 0, vorig = performance.now();
+    (function stap() {
+      if (!ok()) return klaar();
+      const nu = performance.now();
+      if (!pauze) gedaan += nu - vorig;
+      vorig = nu;
+      const t = Math.min(1, gedaan / duur);
+      let d = ease(t) * totaal, i = 0;
+      while (i < seg.length - 1 && d > seg[i]) { d -= seg[i]; i++; }
+      const a = pts[i], b = pts[i + 1], f = seg[i] ? d / seg[i] : 1;
+      agent.setAttribute("transform", `translate(${a.x + (b.x - a.x) * f},${a.y + (b.y - a.y) * f})`);
+      t < 1 ? setTimeout(stap, 16) : klaar();
+    })();
+  });
+}
+async function wegAgent(a) { a.style.opacity = 0; setTimeout(() => a.remove(), 400); }
+
+// cursor naar een element en klikken
+async function klikOp(el, ok, dx = 0, dy = 0) {
+  const c = $("cursor"), p = eenheden(el);
+  c.classList.add("aan");
+  await wacht(250, ok); if (!ok()) return;
+  c.style.left = (p.x + dx) + "px"; c.style.top = (p.y + dy) + "px";
+  await wacht(1250, ok); if (!ok()) return;
+  c.classList.remove("klik"); void c.getBoundingClientRect(); c.classList.add("klik");
+  await wacht(450, ok);
+}
+
+// ── de overgangen ──
+const OVERGANG = [null,
+  async ok => {                                   // 1. het rapport ligt er
+    film.classList.add("v1");
+    bijschrift(BIJ[1]);
+    await wacht(1600, ok);
+  },
+  async ok => {                                   // 2. klik op één alinea; die komt groot naar voren
+    bijschrift(BIJ[2]);
+    const c = $("cursor"); c.style.left = "1180px"; c.style.top = "700px";
+    await wacht(500, ok); if (!ok()) return;
+    $("para").classList.add("wijs");
+    await klikOp($("para"), ok, 40, 6); if (!ok()) return;
+    film.classList.add("v2");
+    await wacht(500, ok); if (!ok()) return;
+    c.classList.remove("aan");
+    await wacht(1300, ok);
+  },
+  async ok => {                                   // 3. elk deel krijgt zijn bron
+    for (let i = 0; i < 4; i++) {
+      bijschrift(STAPPEN[i]);
+      await wacht(450, ok); if (!ok()) return;
+      film.classList.add("b" + (i + 1));
+      await wacht(3900, ok); if (!ok()) return;
+    }
+    bijschrift(BIJ[3]);
+    await wacht(600, ok);
+  },
+  async ok => {                                   // 4. eerdere rapporten erbij
+    bijschrift(BIJ[4]);
+    $("veldrap").classList.add("op"); $("l-veld").classList.add("op");
+    await wacht(900, ok); if (!ok()) return;
+    const docs = [...stage.querySelectorAll(".doc.gelijk")];
+    let hier = { x: 800, y: 560 };
+    const a = maakAgent(hier);
+    await wacht(350, ok); if (!ok()) return;
+    for (const d of docs) {
+      const p = eenheden(d), doel = { x: p.x, y: p.y - 34 };
+      await rij(a, [hier, doel], .5, ok); if (!ok()) return;
+      hier = doel;
+      d.classList.add("op");
+      await wacht(550, ok); if (!ok()) return;
+    }
+    await rij(a, [hier, { x: 1150, y: 750 }, { x: 1220, y: 750 }], .5, ok); if (!ok()) return;
+    $("l-vb").classList.add("op"); $("voorbeeld").classList.add("op");
+    wegAgent(a);
+    await wacht(900, ok);
+  },
+  async ok => {                                   // 5. laat het nakijken
+    bijschrift(BIJ[5]);
+    await wacht(500, ok); if (!ok()) return;
+    $("jij").classList.add("op");
+    await wacht(1300, ok); if (!ok()) return;
+    const start = { x: 1150, y: 430 };
+    const a = maakAgent(start);
+    await wacht(350, ok); if (!ok()) return;
+    await rij(a, [start, { x: 1196, y: 485 }], .4, ok); if (!ok()) return;       // bij de wet
+    await wacht(700, ok); if (!ok()) return;
+    await rij(a, [{ x: 1196, y: 485 }, { x: 1000, y: 606 }], .45, ok); if (!ok()) return;   // bij de rapporten
+    await wacht(700, ok); if (!ok()) return;
+    await rij(a, [{ x: 1000, y: 606 }, { x: 420, y: 606 }, { x: 404, y: 690 }], .5, ok); if (!ok()) return;
+    $("oordeel").classList.add("op");
+    wegAgent(a);
+    for (const li of $("oordeel").querySelectorAll("li")) {
+      await wacht(750, ok); if (!ok()) return;
+      li.classList.add("op");
+    }
+    await wacht(700, ok);
+  },
+  async ok => {                                   // 6. voorstel overnemen; de alinea verandert, de oude versie blijft
+    bijschrift(BIJ[6]);
+    const c = $("cursor"); c.style.left = "700px"; c.style.top = "600px";
+    await wacht(400, ok); if (!ok()) return;
+    await klikOp($("neem"), ok, 6, 4); if (!ok()) return;
+    film.classList.add("v6");
+    $("tekst").innerHTML = V2; tekenLijnen();
+    await wacht(700, ok); if (!ok()) return;
+    c.classList.remove("aan");
+    await wacht(1500, ok);
+  },
+  async ok => {                                   // 7. alles in beeld, met de toelichting
+    bijschrift(BIJ[7]);
+    film.classList.add("v7", "is7");
+    await wacht(800, ok);
+  },
+];
+
+async function speelVanaf(n) {
+  const id = ++run, ok = () => id === run;
+  pauze = false; speelt = true; $("pauze").textContent = "Pauze";
+  stage.classList.remove("stil");
+  toestand(n - 1);
+  if (n === 1) await wacht(600, ok);
+  for (let i = n; i <= 7; i++) {
+    if (!ok()) return;
+    stip(i); huidig = i;
+    for (let k = 1; k <= 7; k++) film.classList.toggle("is" + k, false);
+    if (RUSTIG) { await wacht(300, ok); } else { await OVERGANG[i](ok); }
+    if (!ok()) return;
+    toestand(i);
+    if (i < 7) await wacht(RUST[i] + (RUSTIG ? 2500 : 0), ok);
+  }
+  if (ok()) { speelt = false; $("pauze").textContent = "Verder"; $("pauze").disabled = true; }
+}
+
+$("opnieuw").addEventListener("click", () => { $("pauze").disabled = false; speelVanaf(1); });
+$("pauze").addEventListener("click", () => {
+  if (!speelt) { $("pauze").disabled = false; speelVanaf(Math.min(huidig + 1, 7)); return; }
+  pauze = !pauze; $("pauze").textContent = pauze ? "Verder" : "Pauze";
+});
+$("stippen").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  $("pauze").disabled = false; speelVanaf(+b.dataset.s);
+});
+window.addEventListener("resize", () => { schaal(); tekenLijnen(); });
+
+// ?scene=N zet scène N direct in zijn eindbeeld en pauzeert
+const vraag = +new URLSearchParams(location.search).get("scene");
+if (vraag >= 1 && vraag <= 7) {
+  stage.classList.add("stil");
+  toestand(vraag); speelt = false; $("pauze").textContent = "Verder";
+  if (vraag === 7) $("pauze").disabled = true;
+  requestAnimationFrame(() => { schaal(); tekenLijnen(); });
+} else {
+  speelVanaf(1);
+}
+</script>
+</body>
+</html>
