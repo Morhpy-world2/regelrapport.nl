@@ -1,0 +1,112 @@
+/* Stijl van regelrapport.nl. Zelfde kleuren en kopfont als de animatie in /schema/. Bewust één licht thema. */
+@font-face {
+  font-family: "Kalam"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url(/fonts/kalam-700.woff2) format("woff2");
+}
+:root {
+  --papier: #fffefa; --inkt: #1f2b4f; --inkt-zacht: #4a5578; --lijn: #d9dce6;
+  --geel: #fbefbd; --blauw: #dfeaf8;
+  --groen: #3f8f55; --groen-donker: #2f7243; --groen-licht: #dcf1e0; --groen-vast: #eef8f0;
+  --kop: "Kalam", "Comic Sans MS", cursive;
+  --tekst: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--papier); color: var(--inkt);
+  font-family: var(--tekst); font-size: 18px; line-height: 1.6;
+}
+.breed { max-width: 68rem; margin: 0 auto; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); }
+a { color: inherit; text-underline-offset: 3px; }
+h1, h2, h3 { font-family: var(--kop); font-weight: 700; line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(34px, 5.4vw, 56px); }
+h2 { font-size: clamp(27px, 3.4vw, 36px); }
+h3 { font-size: 23px; }
+p { margin: 0; }
+.smal { max-width: 62ch; }
+
+/* kop en menu */
+.kopbalk { border-bottom: 2px solid var(--inkt); background: var(--papier); }
+.kopbalk .breed { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; padding-block: 14px; }
+.naam { font-family: var(--kop); font-weight: 700; font-size: 26px; text-decoration: none; margin-right: auto; display: inline-flex; align-items: center; gap: 10px; }
+.naam svg { width: 26px; height: 26px; flex: none; }
+.menu { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 22px; list-style: none; margin: 0; padding: 0; font-size: 17px; }
+.menu a { text-decoration: none; padding-block: 4px; border-bottom: 2px solid transparent; }
+.menu a:hover, .menu a[aria-current="page"] { border-bottom-color: var(--groen); }
+
+/* knoppen */
+.knop {
+  display: inline-block; background: var(--groen); color: #fff; font-weight: 600; text-decoration: none;
+  padding: 11px 20px; border: 2px solid var(--inkt); border-radius: 7px 10px 8px 9px; line-height: 1.3;
+}
+.knop:hover { background: var(--groen-donker); }
+.knop.klein { padding: 7px 14px; font-size: 16px; }
+.knop.licht { background: #fff; color: var(--inkt); }
+.knop.licht:hover { background: var(--blauw); }
+.link { font-weight: 600; }
+.acties { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-top: 28px; }
+
+/* blokken */
+main { padding-block: 56px 72px; }
+main > section + section { margin-top: 76px; }
+.boven { font-family: var(--kop); font-weight: 700; font-size: 20px; color: var(--groen); margin-bottom: 10px; }
+.intro { font-size: 21px; margin-top: 18px; }
+section > h2 + p { margin-top: 12px; }
+.tekst p + p { margin-top: 14px; }
+
+.rooster { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 28px; padding: 0; list-style: none; }
+.kaart { background: #fff; border: 2px solid var(--inkt); border-radius: 6px 9px 7px 8px; padding: 20px 22px; }
+.kaart h3 + p { margin-top: 8px; }
+.kaart.geel { background: var(--geel); }
+.kaart.blauw { background: var(--blauw); }
+.kaart.groen { background: var(--groen-vast); }
+
+.stappen { counter-reset: stap; list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 18px; }
+.stappen > li { counter-increment: stap; position: relative; background: #fff; border: 2px solid var(--inkt); border-radius: 6px 9px 7px 8px; padding: 20px 22px 20px 78px; }
+.stappen > li::before {
+  content: counter(stap); position: absolute; left: 20px; top: 18px; width: 40px; height: 40px;
+  display: grid; place-items: center; font-family: var(--kop); font-weight: 700; font-size: 24px;
+  background: var(--geel); border: 2px solid var(--inkt); border-radius: 50%;
+}
+.stappen h3 + p { margin-top: 6px; }
+.wie { margin-top: 8px; font-size: 16px; color: var(--inkt-zacht); }
+
+.lijst { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.lijst li { padding-left: 30px; position: relative; }
+.lijst li::before { content: ""; position: absolute; left: 4px; top: .5em; width: 12px; height: 7px; border-left: 3px solid var(--groen); border-bottom: 3px solid var(--groen); transform: rotate(-45deg); }
+
+.cijfers { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-top: 28px; }
+.cijfers div { border-top: 2px dashed var(--inkt); padding-top: 12px; }
+.cijfers b { display: block; font-family: var(--kop); font-size: 40px; line-height: 1.1; }
+.voetnoot { margin-top: 16px; font-size: 16px; color: var(--inkt-zacht); }
+
+.spoor { margin-top: 28px; background: #fff; border: 2px solid var(--inkt); border-radius: 6px 9px 7px 8px; padding: 22px; }
+.spoor .zin { font-size: 20px; }
+.spoor mark { background: var(--geel); color: inherit; padding: 1px 4px; border-radius: 3px; }
+.spoor mark.b { background: var(--blauw); }
+.spoor mark.g { background: var(--groen-licht); }
+.spoor ul { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 8px; font-size: 16.5px; }
+.spoor li { display: flex; gap: 10px; align-items: baseline; }
+.spoor li span { flex: none; width: 14px; height: 14px; border: 1.5px solid var(--inkt); border-radius: 3px; transform: translateY(2px); }
+.voorbeeld { margin-top: 10px; font-size: 15px; color: var(--inkt-zacht); }
+
+.oproep { background: var(--groen-vast); border: 2px solid var(--inkt); border-radius: 8px 12px 9px 11px; padding: 30px 28px; }
+.oproep p { margin-top: 10px; }
+
+.twee { display: grid; gap: 36px 48px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); align-items: start; }
+
+/* voet */
+.voet { border-top: 2px solid var(--inkt); font-size: 16px; color: var(--inkt-zacht); }
+.voet .breed { display: flex; flex-wrap: wrap; gap: 8px 28px; padding-block: 22px 30px; }
+.voet p:first-child { margin-right: auto; }
+
+@media (max-width: 640px) {
+  body { font-size: 17px; }
+  main { padding-block: 36px 56px; }
+  main > section + section { margin-top: 56px; }
+  .intro { font-size: 19px; }
+  .naam { font-size: 23px; }
+  .stappen > li { padding: 68px 18px 18px; }
+  .stappen > li::before { top: 16px; left: 18px; }
+}
