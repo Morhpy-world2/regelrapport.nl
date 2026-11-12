@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Eén alinea, en alles wat erachter zit · Regelrapport</title>
+<title>Eén alinea en zijn bronnen · Regelrapport</title>
 <meta name="description" content="Animatie: klik in een rapport op één alinea en zie waar elk deel op rust: het sjabloon, de stukken van het project, de wet en eerdere rapporten.">
 <style>
   /* Eén plaat van 1600 × 900 eenheden die meeschaalt. Kleuren van de proeftuin, bewust één licht thema.
@@ -27,21 +27,21 @@
   .kop p { margin: 0; color: var(--g500); font-size: 15px; }
 
   .kader { position: relative; width: min(100%, calc((100vh - 190px) * 16 / 9)); min-width: 280px; aspect-ratio: 16 / 9; margin: 0 auto;
-    background: #fff; border: 1px solid var(--g200); border-radius: 12px; overflow: hidden; }
-  .stage { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; }
+    background: #fff; border: 1px solid var(--g200); border-radius: 12px; overflow: hidden; container-type: inline-size; }
+  .stage { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; transition: transform .7s cubic-bezier(.45, .05, .25, 1); }
   .stage > * { position: absolute; }
   svg.laag { left: 0; top: 0; width: 1600px; height: 900px; overflow: visible; pointer-events: none; }
   #lijnen { z-index: 1; } #agents { z-index: 8; }
 
   /* bijschrift in de plaat */
-  .band { left: 0; right: 0; top: 22px; display: flex; justify-content: center; z-index: 9; pointer-events: none; }
-  .band span { background: var(--g800); color: #fff; font-size: 27px; font-weight: 600; line-height: 1.25; padding: 12px 24px; border-radius: 10px;
-    max-width: 1180px; text-align: center; transition: opacity .35s, background .5s; }
+  .band { position: absolute; left: 0; right: 0; top: 1.4cqw; display: flex; justify-content: center; z-index: 9; pointer-events: none; }
+  .band span { background: var(--g800); color: #fff; font-size: 1.7cqw; font-weight: 600; line-height: 1.25; padding: .75cqw 1.5cqw; border-radius: .6cqw;
+    max-width: 74cqw; text-align: center; transition: opacity .18s, background .4s; box-shadow: 0 .3cqw 1cqw rgba(40, 35, 44, .25); }
   .band span.weg { opacity: 0; }
   .is7 .band span { background: var(--merk); }
 
   /* lijnen */
-  .lijn { fill: none; stroke: var(--g300); stroke-width: 3; stroke-dasharray: 8 8; stroke-linecap: round; opacity: 0; transition: opacity .7s; }
+  .lijn { fill: none; stroke: var(--g300); stroke-width: 3; stroke-dasharray: 8 8; stroke-linecap: round; opacity: 0; transition: opacity .45s; }
   .v2 #l-vel, .b1 #l-sjabloon, .b2 #l-offerte, .b3 #l-reken, .b4 #l-wet, .v4 #l-veld, .v4 #l-vb, .lijn.op { opacity: 1; }
   #l-sjabloon { stroke: var(--merk); } #l-offerte { stroke: var(--groen); } #l-reken { stroke: var(--blauw); } #l-wet { stroke: var(--g700); }
   #l-veld, #l-vb, #l-vel { stroke: var(--merk-200); }
@@ -49,7 +49,7 @@
   /* het rapport: eerst groot in het midden, daarna klein bovenaan */
   .vel { left: 560px; top: 150px; width: 480px; height: 680px; background: #fff; border: 1.5px solid var(--g300); border-radius: 6px; padding: 30px 34px;
     box-shadow: 0 10px 34px rgba(40, 35, 44, .13); transform-origin: 50% 0; opacity: 0; z-index: 3;
-    transition: transform 1.1s cubic-bezier(.6, .05, .3, 1), opacity .7s, box-shadow .7s; }
+    transition: transform .7s cubic-bezier(.6, .05, .3, 1), opacity .5s, box-shadow .5s; }
   .v1 .vel { opacity: 1; }
   .v2 .vel { transform: translateY(-50px) scale(.25); box-shadow: 0 6px 20px rgba(40, 35, 44, .25); }
   .vel .doc-kop { font-size: 12px; color: var(--g500); letter-spacing: .04em; text-transform: uppercase; }
@@ -70,7 +70,7 @@
   .v2 .alinea { opacity: 1; transform: none; }
   .alinea .waar { font-size: 15px; color: var(--g500); letter-spacing: .03em; text-transform: uppercase; margin-bottom: 8px; }
   .alinea p { margin: 0; font-size: 26px; line-height: 1.5; }
-  .alinea p span { border-radius: 4px; padding: 1px 2px; box-shadow: inset 0 -3px 0 transparent; transition: background .5s, box-shadow .5s; }
+  .alinea p span { border-radius: 4px; padding: 1px 2px; box-shadow: inset 0 -3px 0 transparent; transition: background .35s, box-shadow .35s; }
   .b1 .w-vast { background: var(--merk-50); box-shadow: inset 0 -3px 0 var(--merk-200); }
   .b2 .w-straat { background: var(--groen-100); box-shadow: inset 0 -3px 0 var(--groen); }
   .b3 .w-waarde { background: var(--blauw-100); box-shadow: inset 0 -3px 0 var(--blauw); }
@@ -88,7 +88,7 @@
 
   /* bronkaarten rond de alinea */
   .bron { width: 330px; background: #fff; border: 1.5px solid var(--g300); border-top-width: 5px; border-radius: 10px; padding: 14px 18px; font-size: 17px; line-height: 1.4; z-index: 3;
-    opacity: .3; filter: grayscale(1); transition: opacity .7s, filter .7s, transform .7s cubic-bezier(.3, .8, .3, 1), box-shadow .7s; }
+    opacity: .3; filter: grayscale(1); transition: opacity .45s, filter .45s, box-shadow .45s; }
   .bron h3 { margin: 0; font-size: 20px; font-weight: 700; }
   .bron .sub { font-size: 14.5px; color: var(--g500); margin-bottom: 8px; }
   .bron .chip { margin-top: 9px; }
@@ -97,8 +97,12 @@
   #k-sjabloon { left: 50px; top: 120px; height: 208px; border-top-color: var(--merk); }
   #k-offerte { left: 50px; top: 350px; height: 204px; border-top-color: var(--groen); }
   #k-reken { left: 1220px; top: 120px; height: 228px; border-top-color: var(--blauw); }
-  #k-wet { left: 1220px; top: 380px; height: 212px; border-top-color: var(--g700); }
+  #k-wet { left: 1220px; top: 372px; height: 236px; border-top-color: var(--g700); }
   .b1 #k-sjabloon, .b2 #k-offerte, .b3 #k-reken, .b4 #k-wet { opacity: 1; filter: none; box-shadow: 0 8px 24px rgba(40, 35, 44, .1); }
+  .wetten { display: flex; flex-wrap: wrap; gap: 5px; margin: 7px 0 9px; border-radius: 8px; transition: box-shadow .4s; }
+  .wetten span { font-size: 13.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--g100); color: var(--g700); border: 1px solid var(--g200); transition: background .4s, color .4s, border-color .4s; }
+  .b4 .wetten .bkl { background: var(--g800); color: #fff; border-color: var(--g800); }
+  .wetten.op, .tabs.op { box-shadow: 0 0 0 5px var(--merk-100); }
   .citaat { margin: 0; padding: 7px 10px; border-left: 3px solid var(--g300); background: var(--g100); border-radius: 0 6px 6px 0; font-size: 16px; }
   #k-sjabloon .citaat { border-left-color: var(--merk); background: var(--merk-50); }
   #k-offerte .citaat { border-left-color: var(--groen); background: var(--groen-50); }
@@ -117,7 +121,12 @@
     opacity: 0; filter: grayscale(1); transition: opacity .7s, filter .7s; }
   .v2 .veldrap { opacity: .32; }
   .v4 .veldrap, .veldrap.op { opacity: 1; filter: none; }
-  .veldrap h3 { margin: 0 0 8px; font-size: 20px; }
+  .veldrap h3 { margin: 0 0 7px; font-size: 20px; display: flex; align-items: baseline; white-space: nowrap; }
+  .veldrap .zoek { margin-left: auto; align-self: center; font-size: 13.5px; font-weight: 400; color: var(--g500); background: #fff; border: 1px solid var(--g300); border-radius: 999px; padding: 3px 12px 3px 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='7' cy='7' r='4.2' fill='none' stroke='%236b6570' stroke-width='1.6'/%3E%3Cpath d='M10.2 10.2 L14 14' stroke='%236b6570' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 9px 50%; background-size: 13px; }
+  .tabs { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-bottom: 9px; border-radius: 999px; transition: box-shadow .4s; }
+  .tabs span { font-size: 13.5px; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: #fff; color: var(--g500); border: 1px solid var(--g300); }
+  .tabs span.actief { font-size: 15px; background: var(--merk); color: #fff; border-color: var(--merk); }
   .veldrap h3 small { font-weight: 400; font-size: 15px; color: var(--g500); margin-left: 8px; }
   .veldrap .noot { display: none; font-weight: 400; font-size: 16px; color: var(--g700); margin-left: 8px; }
   .is7 .veldrap h3 small { display: none; } .is7 .veldrap .noot { display: inline; }
@@ -127,7 +136,7 @@
   #openbaar .docs { grid-template-columns: repeat(34, 10px); }
   .doc { width: 10px; height: 13px; background: #fff; border: 1px solid var(--g300); border-radius: 2px; transition: transform .4s, background .4s, border-color .4s, box-shadow .4s; }
   .v4 .doc.gelijk, .doc.op { background: var(--merk); border-color: var(--merk-700); transform: scale(2); box-shadow: 0 0 0 3px var(--merk-100); position: relative; z-index: 2; }
-  .groep p { white-space: nowrap; margin: 9px 0 0; font-size: 15.5px; color: var(--g700); font-weight: 600; }
+  .groep p { white-space: nowrap; margin: 7px 0 0; font-size: 15.5px; color: var(--g700); font-weight: 600; }
 
   /* kaart uit een vergelijkbaar rapport, en het oordeel */
   .los { width: 330px; height: 248px; top: 630px; background: #fff; border: 1.5px solid var(--g300); border-radius: 10px; padding: 14px 18px; font-size: 17px; line-height: 1.4; z-index: 3;
@@ -140,7 +149,7 @@
   .v4 #voorbeeld, .v5 #oordeel, .los.op { opacity: 1; transform: none; }
   #oordeel { left: 50px; top: 584px; height: 292px; border-top: 5px solid var(--amber-200); }
   #oordeel ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 7px; }
-  #oordeel li { display: flex; gap: 8px; align-items: flex-start; opacity: 0; transition: opacity .5s; font-size: 16.5px; }
+  #oordeel li { display: flex; gap: 8px; align-items: flex-start; opacity: 0; transition: opacity .3s; font-size: 16.5px; }
   .v5 #oordeel li, #oordeel li.op { opacity: 1; }
   #oordeel li b { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 14px; background: var(--groen-100); color: var(--groen); margin-top: 1px; }
   #oordeel li.voorstel { background: var(--amber-50); border: 1px solid var(--amber-200); border-radius: 8px; padding: 7px 9px; flex-wrap: wrap; transition: opacity .5s, background .5s, border-color .5s; }
@@ -163,10 +172,10 @@
   .agent { transition: opacity .35s; }
   .agent .tw { transform-origin: center; transform-box: fill-box; animation: draai 2.4s linear infinite; }
   @keyframes draai { to { transform: rotate(360deg); } }
-  .cursor { width: 34px; height: 34px; left: 1180px; top: 700px; z-index: 10; opacity: 0; pointer-events: none; transition: left 1.1s cubic-bezier(.5, .1, .3, 1), top 1.1s cubic-bezier(.5, .1, .3, 1), opacity .3s; }
+  .cursor { width: 34px; height: 34px; left: 1180px; top: 700px; z-index: 10; opacity: 0; pointer-events: none; transition: left .62s cubic-bezier(.5, .1, .3, 1), top .62s cubic-bezier(.5, .1, .3, 1), opacity .2s; }
   .cursor.aan { opacity: 1; }
   .cursor::after { content: ""; position: absolute; left: -14px; top: -14px; width: 36px; height: 36px; border-radius: 50%; border: 3px solid var(--merk); opacity: 0; }
-  .cursor.klik::after { animation: klik .55s ease-out; }
+  .cursor.klik::after { animation: klik .4s ease-out; }
   @keyframes klik { 0% { opacity: .9; transform: scale(.3); } 100% { opacity: 0; transform: scale(1.5); } }
 
   /* onder de plaat */
@@ -188,6 +197,11 @@
   .slot .cta:hover { background: var(--merk-700); }
 
   .stage.stil, .stage.stil * { transition: none !important; animation: none !important; }
+  /* ingesloten in een andere pagina (?embed=1) */
+  .embed, .embed body { background: #fff; }
+  .embed body { padding: 0; }
+  .embed .kop, .embed .terug { display: none; }
+  .embed .kader { width: 100%; }
   @media (max-width: 760px) {
     .band { display: none; }
     .bij-los { display: block; }
@@ -203,11 +217,12 @@
 <body>
 <div id="film">
 <header class="kop">
-  <h1>Eén alinea, en alles wat erachter zit</h1>
-  <p>Het rapport is af. We lopen van één stuk tekst terug naar waar het op rust.</p>
+  <h1>Eén alinea en zijn bronnen</h1>
+  <p>Van één alinea in het rapport terug naar de bronnen.</p>
 </header>
 
 <div class="kader" id="kader">
+  <div class="band" aria-hidden="true"><span id="band"></span></div>
 <div class="stage" id="stage" role="img" aria-label="Animatie. In een rapport dat af is, wordt één alinea aangeklikt. Van elk deel van die alinea is te zien waar het op rust: de vaste formulering komt uit het sjabloon, de straatnaam uit de offerte, de geluidbelasting uit de rekenresultaten en de toets aan de standaardwaarde uit de wet. Daarna worden eerdere rapporten erbij gezocht, wordt de alinea nagekeken en wordt een voorstel overgenomen. Elke versie blijft bewaard.">
   <svg class="laag" id="lijnen" viewBox="0 0 1600 900" aria-hidden="true">
     <path class="lijn" id="l-vel" d="M800,272 L800,300"/>
@@ -216,14 +231,12 @@
     <path class="lijn" id="l-vb" d="M1150,750 L1220,750"/>
   </svg>
 
-  <div class="band" aria-hidden="true"><span id="band"></span></div>
-
   <div class="vel" id="vel" aria-hidden="true">
     <div class="doc-kop">Akoestisch onderzoek wegverkeer</div>
-    <div class="doc-titel">Twaalf woningen Dorpsstraat</div>
+    <div class="doc-titel">Lindenhof, 12 woningen</div>
     <h2>5 Resultaten</h2>
     <i></i><i class="m"></i><i class="k"></i>
-    <p class="para" id="para">Op de gevels aan de Dorpsstraat is de geluidbelasting ten hoogste 54 dB. Daarmee wordt de standaardwaarde van 53 dB overschreden.</p>
+    <p class="para" id="para">Op de gevels aan de Beukenlaan is de geluidbelasting ten hoogste 54 dB. Daarmee wordt de standaardwaarde van 53 dB overschreden.</p>
     <i></i><i class="m"></i>
     <div class="tabel"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div>
     <i class="m"></i><i></i><i class="k"></i>
@@ -255,7 +268,7 @@
     <h3>Offerte</h3>
     <div class="detail">
       <div class="sub">Stuk van het project</div>
-      <p class="citaat">“… akoestisch onderzoek voor de bouw van twaalf grondgebonden woningen aan de <mark>Dorpsstraat</mark> …”</p>
+      <p class="citaat">“… akoestisch onderzoek voor de bouw van twaalf woningen aan de <mark>Beukenlaan</mark> …”</p>
       <span class="chip groen">✓ door jou bevestigd</span>
     </div>
     <p class="noot"><b>Stukken van het project.</b> Elk gegeven met de bron en het letterlijke citaat, door jou bevestigd.</p>
@@ -267,7 +280,7 @@
       <div class="sub">Stuk van het project</div>
       <table class="rek"><tr><th>Gevel</th><th>Geluidbelasting</th></tr>
         <tr><td>Noord</td><td>51 dB</td></tr>
-        <tr class="hit"><td>West, Dorpsstraat</td><td>54 dB</td></tr>
+        <tr class="hit"><td>West, Beukenlaan</td><td>54 dB</td></tr>
         <tr><td>Zuid</td><td>49 dB</td></tr></table>
       <div class="plek">Plek in het bestand: tabel gevels, rij 2</div>
     </div>
@@ -276,20 +289,21 @@
 
   <div class="bron" id="k-wet" aria-hidden="true">
     <h3>Wet</h3>
+    <div class="wetten" id="wetten"><span>Omgevingswet</span><span class="bkl">Bkl</span><span>Bbl</span><span>Bal</span><span>Omgevingsbesluit</span><span>Omgevingsregeling</span></div>
     <div class="detail">
-      <div class="sub">Besluit kwaliteit leefomgeving (Bkl)</div>
       <p class="citaat">Standaardwaarde wegverkeer: 53 dB</p>
       <div class="som">54 dB &gt; 53 dB: <em>overschreden</em></div>
-      <span class="chip">uitgerekend volgens de regel</span>
+      <div class="plek">Uitgerekend volgens de regel</div>
     </div>
     <p class="noot">De tekst die nu geldt. Wat te berekenen is, wordt uitgerekend volgens de regel.</p>
   </div>
 
   <div class="veldrap" id="veldrap" aria-hidden="true">
-    <h3>Eerdere rapporten<small>hoe is een vergelijkbare situatie eerder beschreven?</small><span class="noot">Ze geven de vorm, niet de feiten.</span></h3>
+    <h3>Eerdere rapporten<small>vergelijkbare situaties</small><span class="noot">Voorbeelden uit eerdere rapporten.</span><span class="zoek">Zoek in de rapporten</span></h3>
+    <div class="tabs" id="tabs"><span class="actief">Akoestische rapporten · ruim 1.200</span><span>Stikstof · ruim 1.600</span><span>Verkeer · ruim 1.100</span></div>
     <div class="groepen">
       <div class="groep" id="archief"><div class="docs"></div><p>jullie eigen archief</p></div>
-      <div class="groep" id="openbaar"><div class="docs"></div><p>ruim 1.200 openbare akoestische rapporten</p></div>
+      <div class="groep" id="openbaar"><div class="docs"></div><p>openbare rapporten</p></div>
     </div>
   </div>
 
@@ -307,7 +321,7 @@
     <h3>Uit een vergelijkbaar rapport</h3>
     <div class="sub">Woningbouw langs een gemeentelijke weg</div>
     <p class="citaat">“De geluidbelasting bedraagt ten hoogste 55 dB. De standaardwaarde wordt met 2 dB overschreden.”</p>
-    <div class="vorm">Je neemt de vorm over, niet de feiten.</div>
+    <div class="vorm">Alleen de vorm wordt overgenomen.</div>
   </div>
 
   <svg class="laag" id="agents" viewBox="0 0 1600 900" aria-hidden="true"></svg>
@@ -325,7 +339,7 @@
   </div>
   <div class="slot" id="slot">
     <a class="cta" href="/voorzet/">Vraag een kosteloze voorzet aan</a>
-    <a href="/">Terug naar regelrapport.nl</a>
+    <a class="terug" href="/">Terug naar regelrapport.nl</a>
   </div>
 </div>
 </div>
@@ -334,44 +348,64 @@
 /* ── Hier pas je de inhoud aan ─────────────────────────────── */
 const BIJ = [
   "",
-  "Het rapport is af. Maar waarom staat er wat er staat?",
-  "Klik op een stuk tekst.",
-  "Elk deel van de alinea heeft zijn eigen bron.",
-  "Zo deden eerdere rapporten het.",
-  "Laat een stuk nakijken, tegen de wet en tegen eerdere rapporten.",
-  "Herschrijf zelf of neem een voorstel over. Elke versie blijft bewaard.",
-  "Jij beslist. Het systeem laat zien waarom.",
+  "Dit is het rapport.",
+  "Klik op een alinea.",
+  "Elk deel heeft een bron.",
+  "De wetten en de rapporten staan erbij. Je kunt er zelf in zoeken.",
+  "Laat de alinea nakijken.",
+  "Neem het voorstel over. De vorige versie blijft bewaard.",
+  "Alles bij elkaar.",
 ];
-const NAMEN = ["", "Het rapport", "Klik op een alinea", "De bronnen", "Eerdere rapporten", "Nakijken", "Herschrijven", "Overzicht"];
+const NAMEN = ["", "Het rapport", "Klik op een alinea", "De bronnen", "Eerdere rapporten", "Nakijken", "Overnemen", "Overzicht"];
 // de vier bronnen van scène 3: bijschrift per stap
 const STAPPEN = [
-  "De vaste formulering komt uit jullie sjabloon.",
-  "De straat komt uit de offerte, met het citaat erbij.",
+  "De vaste tekst komt uit jullie sjabloon.",
+  "De straat komt uit de offerte.",
   "Het getal komt uit de rekenresultaten.",
-  "De toets aan de norm is uitgerekend volgens de regel.",
+  "De toets is uitgerekend volgens de regel.",
 ];
-const V1 = '<span class="w-vast" id="w-vast">Op de gevels aan de</span> <span class="w-straat" id="w-straat">Dorpsstraat</span> <span class="w-vast">is de geluidbelasting ten hoogste</span> <span class="w-waarde" id="w-waarde">54 dB</span>. Daarmee wordt de <span class="w-toets" id="w-toets">standaardwaarde van 53 dB overschreden</span>.';
-const V2 = '<span class="w-vast" id="w-vast">Op de gevels aan de</span> <span class="w-straat" id="w-straat">Dorpsstraat</span> <span class="w-vast">is de geluidbelasting ten hoogste</span> <span class="w-waarde" id="w-waarde">54 dB</span>. Daarmee wordt de <span class="w-toets" id="w-toets">standaardwaarde van 53 dB</span> <span class="w-nieuw">met 1 dB</span> <span class="w-toets">overschreden</span>.';
+const EERDER = "Zo beschreven eerdere rapporten het.";   // eerste bijschrift van scène 4; het tweede is BIJ[4]
+const V1 = '<span class="w-vast" id="w-vast">Op de gevels aan de</span> <span class="w-straat" id="w-straat">Beukenlaan</span> <span class="w-vast">is de geluidbelasting ten hoogste</span> <span class="w-waarde" id="w-waarde">54 dB</span>. Daarmee wordt de <span class="w-toets" id="w-toets">standaardwaarde van 53 dB overschreden</span>.';
+const V2 = '<span class="w-vast" id="w-vast">Op de gevels aan de</span> <span class="w-straat" id="w-straat">Beukenlaan</span> <span class="w-vast">is de geluidbelasting ten hoogste</span> <span class="w-waarde" id="w-waarde">54 dB</span>. Daarmee wordt de <span class="w-toets" id="w-toets">standaardwaarde van 53 dB</span> <span class="w-nieuw">met 1 dB</span> <span class="w-toets">overschreden</span>.';
 // hoe lang een scène blijft staan nadat zijn overgang klaar is (ms)
-const RUST = [0, 4200, 3200, 3600, 4200, 4200, 4800, 0];
+const RUST = [0, 1500, 900, 1100, 1000, 1300, 1500, 0];
 // waar de lijn van elk deel van de alinea bij zijn kaart uitkomt (plaat-eenheden 1600 × 900)
 const LIJNEN = [
   { id: "l-sjabloon", van: "w-vast",   naar: { x: 380, y: 262 } },
   { id: "l-offerte",  van: "w-straat", naar: { x: 380, y: 452 } },
   { id: "l-reken",    van: "w-waarde", naar: { x: 1220, y: 290 } },
-  { id: "l-wet",      van: "w-toets",  naar: { x: 1220, y: 485 } },
+  { id: "l-wet",      van: "w-toets",  naar: { x: 1220, y: 490 } },
 ];
 const GELIJK = { archief: [9], openbaar: [47, 163, 220] };   // welke documentjes oplichten als vergelijkbaar
+// inzoomen: middelpunt (plaat-eenheden) en factor. De eindtoestand van elke scène is altijd de hele plaat.
+const HEEL = [800, 450, 1], LINKS = [592, 333, 1.35], RECHTS = [1008, 333, 1.35], ONDER = [1000, 650, 1.35], OORDEEL = [592, 600, 1.35];
 /* ──────────────────────────────────────────────────────────── */
 
 const $ = id => document.getElementById(id);
-const film = $("film"), stage = $("stage"), NS = "http://www.w3.org/2000/svg";
+const film = $("film"), stage = $("stage"), kader = $("kader"), NS = "http://www.w3.org/2000/svg";
 const RUSTIG = matchMedia("(prefers-reduced-motion: reduce)").matches;
-let run = 0, pauze = false, speelt = false, huidig = 0;
+const VRAAG = new URLSearchParams(location.search);
+const EMBED = VRAAG.get("embed") === "1";
+let run = 0, pauze = false, speelt = false, huidig = 0, Z = HEEL;
 
-// de plaat schaalt mee met het kader
-function schaal() { stage.style.transform = `scale(${$("kader").clientWidth / 1600})`; }
-new ResizeObserver(schaal).observe($("kader")); schaal();
+// insluiten: geen titel, witte achtergrond, links openen de omringende pagina, en de hoogte gaat naar die pagina
+if (EMBED) {
+  document.documentElement.classList.add("embed");
+  document.querySelectorAll("a").forEach(a => a.target = "_top");
+  const meld = () => { try { parent.postMessage({ regelrapportHoogte: document.documentElement.scrollHeight }, "*"); } catch (e) {} };
+  new ResizeObserver(meld).observe(document.body);
+  window.addEventListener("load", meld);
+}
+
+// de plaat schaalt mee met het kader; zoom verschuift en vergroot de plaat binnen het kader
+function schaal() {
+  const s = kader.clientWidth / 1600, k = s * Z[2];
+  const tx = Math.min(0, Math.max(1600 * s - 1600 * k, 800 * s - Z[0] * k));
+  const ty = Math.min(0, Math.max(900 * s - 900 * k, 450 * s - Z[1] * k));
+  stage.style.transform = `translate(${tx}px,${ty}px) scale(${k})`;
+}
+function zoom(doel) { Z = RUSTIG ? HEEL : doel; schaal(); }
+new ResizeObserver(schaal).observe(kader); schaal();
 
 // documentjes
 function vulDocs(id, n) {
@@ -399,15 +433,15 @@ function wacht(ms, ok) {
       const nu = performance.now();
       if (!pauze) rest -= nu - vorig;
       vorig = nu;
-      rest <= 0 ? klaar() : setTimeout(tik, 40);
+      rest <= 0 ? klaar() : setTimeout(tik, 30);
     })();
   });
 }
 
-// element → middelpunt in plaat-eenheden
+// element → middelpunt in plaat-eenheden (klopt ook als de plaat is ingezoomd)
 function eenheden(el) {
   const st = stage.getBoundingClientRect(), r = el.getBoundingClientRect(), f = 1600 / st.width;
-  return { x: (r.left + r.width / 2 - st.left) * f, y: (r.top + r.height / 2 - st.top) * f, w: r.width * f, h: r.height * f };
+  return { x: (r.left + r.width / 2 - st.left) * f, y: (r.top + r.height / 2 - st.top) * f };
 }
 function tekenLijnen() {
   for (const l of LIJNEN) {
@@ -422,7 +456,7 @@ function bijschrift(tekst, direct) {
   const b = $("band");
   if (direct || RUSTIG) { b.textContent = tekst; b.classList.toggle("weg", !tekst); return; }
   b.classList.add("weg");
-  setTimeout(() => { b.textContent = tekst; b.classList.toggle("weg", !tekst); }, 300);
+  setTimeout(() => { b.textContent = tekst; b.classList.toggle("weg", !tekst); }, 180);
 }
 
 // ── toestand: zet scène n direct in zijn eindbeeld ──
@@ -436,6 +470,7 @@ function toestand(n) {
   $("agents").innerHTML = "";
   $("cursor").classList.remove("aan", "klik");
   $("tekst").innerHTML = n >= 6 ? V2 : V1;
+  zoom(HEEL);
   tekenLijnen();
   bijschrift(BIJ[n] || "", true);
   stip(n);
@@ -474,17 +509,17 @@ function rij(agent, pts, snelheid, ok) {
     })();
   });
 }
-async function wegAgent(a) { a.style.opacity = 0; setTimeout(() => a.remove(), 400); }
+function wegAgent(a) { a.style.opacity = 0; setTimeout(() => a.remove(), 300); }
 
 // cursor naar een element en klikken
 async function klikOp(el, ok, dx = 0, dy = 0) {
   const c = $("cursor"), p = eenheden(el);
   c.classList.add("aan");
-  await wacht(250, ok); if (!ok()) return;
+  await wacht(120, ok); if (!ok()) return;
   c.style.left = (p.x + dx) + "px"; c.style.top = (p.y + dy) + "px";
-  await wacht(1250, ok); if (!ok()) return;
+  await wacht(680, ok); if (!ok()) return;
   c.classList.remove("klik"); void c.getBoundingClientRect(); c.classList.add("klik");
-  await wacht(450, ok);
+  await wacht(300, ok);
 }
 
 // ── de overgangen ──
@@ -492,94 +527,108 @@ const OVERGANG = [null,
   async ok => {                                   // 1. het rapport ligt er
     film.classList.add("v1");
     bijschrift(BIJ[1]);
-    await wacht(1600, ok);
+    await wacht(700, ok);
   },
   async ok => {                                   // 2. klik op één alinea; die komt groot naar voren
     bijschrift(BIJ[2]);
-    const c = $("cursor"); c.style.left = "1180px"; c.style.top = "700px";
-    await wacht(500, ok); if (!ok()) return;
+    const c = $("cursor"); c.style.left = "1100px"; c.style.top = "640px";
+    await wacht(200, ok); if (!ok()) return;
     $("para").classList.add("wijs");
     await klikOp($("para"), ok, 40, 6); if (!ok()) return;
     film.classList.add("v2");
-    await wacht(500, ok); if (!ok()) return;
+    await wacht(300, ok); if (!ok()) return;
     c.classList.remove("aan");
-    await wacht(1300, ok);
+    await wacht(600, ok);
   },
-  async ok => {                                   // 3. elk deel krijgt zijn bron
+  async ok => {                                   // 3. elk deel krijgt zijn bron; eerst links ingezoomd, dan rechts
     for (let i = 0; i < 4; i++) {
+      zoom(i < 2 ? LINKS : RECHTS);
       bijschrift(STAPPEN[i]);
-      await wacht(450, ok); if (!ok()) return;
+      await wacht(i % 2 ? 250 : 500, ok); if (!ok()) return;
       film.classList.add("b" + (i + 1));
-      await wacht(3900, ok); if (!ok()) return;
+      await wacht(1450, ok); if (!ok()) return;
     }
+    zoom(HEEL);
     bijschrift(BIJ[3]);
     await wacht(600, ok);
   },
   async ok => {                                   // 4. eerdere rapporten erbij
-    bijschrift(BIJ[4]);
+    bijschrift(EERDER);
     $("veldrap").classList.add("op"); $("l-veld").classList.add("op");
-    await wacht(900, ok); if (!ok()) return;
+    zoom(ONDER);
+    await wacht(600, ok); if (!ok()) return;
     const docs = [...stage.querySelectorAll(".doc.gelijk")];
     let hier = { x: 800, y: 560 };
     const a = maakAgent(hier);
-    await wacht(350, ok); if (!ok()) return;
+    await wacht(200, ok); if (!ok()) return;
     for (const d of docs) {
       const p = eenheden(d), doel = { x: p.x, y: p.y - 34 };
-      await rij(a, [hier, doel], .5, ok); if (!ok()) return;
+      await rij(a, [hier, doel], 1.1, ok); if (!ok()) return;
       hier = doel;
       d.classList.add("op");
-      await wacht(550, ok); if (!ok()) return;
+      await wacht(200, ok); if (!ok()) return;
     }
-    await rij(a, [hier, { x: 1150, y: 750 }, { x: 1220, y: 750 }], .5, ok); if (!ok()) return;
+    await rij(a, [hier, { x: 1150, y: 750 }, { x: 1220, y: 750 }], 1.1, ok); if (!ok()) return;
     $("l-vb").classList.add("op"); $("voorbeeld").classList.add("op");
     wegAgent(a);
-    await wacht(900, ok);
+    await wacht(1300, ok); if (!ok()) return;
+    bijschrift(BIJ[4]);                             // de kennis: wetten en verzamelingen lichten even op
+    $("wetten").classList.add("op"); $("tabs").classList.add("op");
+    await wacht(1900, ok); if (!ok()) return;
+    zoom(HEEL);
+    await wacht(600, ok);
   },
   async ok => {                                   // 5. laat het nakijken
     bijschrift(BIJ[5]);
-    await wacht(500, ok); if (!ok()) return;
+    await wacht(150, ok); if (!ok()) return;
     $("jij").classList.add("op");
-    await wacht(1300, ok); if (!ok()) return;
+    await wacht(700, ok); if (!ok()) return;
     const start = { x: 1150, y: 430 };
     const a = maakAgent(start);
-    await wacht(350, ok); if (!ok()) return;
-    await rij(a, [start, { x: 1196, y: 485 }], .4, ok); if (!ok()) return;       // bij de wet
-    await wacht(700, ok); if (!ok()) return;
-    await rij(a, [{ x: 1196, y: 485 }, { x: 1000, y: 606 }], .45, ok); if (!ok()) return;   // bij de rapporten
-    await wacht(700, ok); if (!ok()) return;
-    await rij(a, [{ x: 1000, y: 606 }, { x: 420, y: 606 }, { x: 404, y: 690 }], .5, ok); if (!ok()) return;
+    await wacht(200, ok); if (!ok()) return;
+    await rij(a, [start, { x: 1196, y: 485 }], .7, ok); if (!ok()) return;       // bij de wet
+    await wacht(300, ok); if (!ok()) return;
+    await rij(a, [{ x: 1196, y: 485 }, { x: 1000, y: 606 }], 1, ok); if (!ok()) return;   // bij de rapporten
+    await wacht(300, ok); if (!ok()) return;
+    zoom(OORDEEL);
+    await rij(a, [{ x: 1000, y: 606 }, { x: 420, y: 606 }, { x: 404, y: 690 }], 1.1, ok); if (!ok()) return;
     $("oordeel").classList.add("op");
     wegAgent(a);
     for (const li of $("oordeel").querySelectorAll("li")) {
-      await wacht(750, ok); if (!ok()) return;
+      await wacht(380, ok); if (!ok()) return;
       li.classList.add("op");
     }
-    await wacht(700, ok);
+    await wacht(1300, ok); if (!ok()) return;
+    zoom(HEEL);
+    await wacht(600, ok);
   },
   async ok => {                                   // 6. voorstel overnemen; de alinea verandert, de oude versie blijft
     bijschrift(BIJ[6]);
-    const c = $("cursor"); c.style.left = "700px"; c.style.top = "600px";
-    await wacht(400, ok); if (!ok()) return;
+    const c = $("cursor"); c.style.left = "700px"; c.style.top = "640px";
+    zoom(OORDEEL);
+    await wacht(700, ok); if (!ok()) return;
     await klikOp($("neem"), ok, 6, 4); if (!ok()) return;
     film.classList.add("v6");
     $("tekst").innerHTML = V2; tekenLijnen();
-    await wacht(700, ok); if (!ok()) return;
+    await wacht(500, ok); if (!ok()) return;
     c.classList.remove("aan");
-    await wacht(1500, ok);
+    await wacht(1000, ok); if (!ok()) return;
+    zoom(HEEL);
+    await wacht(600, ok);
   },
   async ok => {                                   // 7. alles in beeld, met de toelichting
     bijschrift(BIJ[7]);
     film.classList.add("v7", "is7");
-    await wacht(800, ok);
+    await wacht(500, ok);
   },
 ];
 
 async function speelVanaf(n) {
   const id = ++run, ok = () => id === run;
-  pauze = false; speelt = true; $("pauze").textContent = "Pauze";
+  pauze = false; speelt = true; $("pauze").textContent = "Pauze"; $("pauze").disabled = false;
   stage.classList.remove("stil");
   toestand(n - 1);
-  if (n === 1) await wacht(600, ok);
+  if (n === 1) await wacht(300, ok);
   for (let i = n; i <= 7; i++) {
     if (!ok()) return;
     stip(i); huidig = i;
@@ -587,29 +636,42 @@ async function speelVanaf(n) {
     if (RUSTIG) { await wacht(300, ok); } else { await OVERGANG[i](ok); }
     if (!ok()) return;
     toestand(i);
-    if (i < 7) await wacht(RUST[i] + (RUSTIG ? 2500 : 0), ok);
+    if (i < 7) await wacht(RUST[i] + (RUSTIG ? 2200 : 0), ok);
   }
-  if (ok()) { speelt = false; $("pauze").textContent = "Verder"; $("pauze").disabled = true; }
+  if (ok()) { speelt = false; $("pauze").textContent = "Verder"; $("pauze").disabled = true; film.dataset.klaar = Math.round(performance.now()); }
 }
 
-$("opnieuw").addEventListener("click", () => { $("pauze").disabled = false; speelVanaf(1); });
+let zelfGepauzeerd = false;
+$("opnieuw").addEventListener("click", () => speelVanaf(1));
 $("pauze").addEventListener("click", () => {
-  if (!speelt) { $("pauze").disabled = false; speelVanaf(Math.min(huidig + 1, 7)); return; }
-  pauze = !pauze; $("pauze").textContent = pauze ? "Verder" : "Pauze";
+  if (!speelt) { speelVanaf(Math.min(huidig + 1, 7)); return; }
+  pauze = !pauze; zelfGepauzeerd = pauze; $("pauze").textContent = pauze ? "Verder" : "Pauze";
 });
 $("stippen").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
-  $("pauze").disabled = false; speelVanaf(+b.dataset.s);
+  speelVanaf(+b.dataset.s);
 });
 window.addEventListener("resize", () => { schaal(); tekenLijnen(); });
 
 // ?scene=N zet scène N direct in zijn eindbeeld en pauzeert
-const vraag = +new URLSearchParams(location.search).get("scene");
+const vraag = +VRAAG.get("scene");
 if (vraag >= 1 && vraag <= 7) {
   stage.classList.add("stil");
   toestand(vraag); speelt = false; $("pauze").textContent = "Verder";
   if (vraag === 7) $("pauze").disabled = true;
+  const kijk = { links: LINKS, rechts: RECHTS, onder: ONDER, oordeel: OORDEEL }[VRAAG.get("zoom")];   // om een ingezoomd beeld te controleren
+  if (kijk) zoom(kijk);
   requestAnimationFrame(() => { schaal(); tekenLijnen(); });
+} else if (EMBED && "IntersectionObserver" in window) {
+  // ingesloten: pas starten als de plaat in beeld is, en pauzeren zodra hij uit beeld gaat
+  let gestart = false, uitBeeld = false;
+  toestand(0);
+  new IntersectionObserver(es => {
+    const zicht = es[es.length - 1].isIntersecting;
+    if (zicht && !gestart) { gestart = true; speelVanaf(1); }
+    else if (zicht && uitBeeld) { uitBeeld = false; if (!zelfGepauzeerd) { pauze = false; $("pauze").textContent = "Pauze"; } }
+    else if (!zicht && speelt && !pauze) { uitBeeld = true; pauze = true; $("pauze").textContent = "Verder"; }
+  }, { threshold: .35 }).observe(kader);
 } else {
   speelVanaf(1);
 }

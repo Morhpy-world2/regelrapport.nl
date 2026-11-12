@@ -64,7 +64,7 @@ def pagina(pad, titel, omschrijving, inhoud):
 <footer class="voet"><div class="breed">
   <p>{NAAM} is van Morphy B.V. · KVK 95783652</p>
   <p><a href="mailto:{EMAIL}">{EMAIL}</a></p>
-  <p><a href="/schema/">Het schema</a></p>
+  <p><a href="/video/">In beeld</a></p>
   <p><a href="https://www.morphy.world">www.morphy.world</a></p>
 </div></footer>
 </body>
@@ -159,8 +159,8 @@ pagina("/", "Regelrapport: van onderzoeken naar rapport",
   </div>
   <div class="kaart">
     <h3>Liever eerst het plaatje?</h3>
-    <p>In één animatie: drie onderzoeken, de documentgenerator en het rapport dat eruit komt.</p>
-    <div class="acties" style="margin-top:16px"><a class="knop licht" href="/schema/">Bekijk het schema</a></div>
+    <p>Twee korte animaties: hoe je een rapport maakt, en wat er achter één alinea zit.</p>
+    <div class="acties" style="margin-top:16px"><a class="knop licht" href="/video/">Bekijk de animatie</a></div>
   </div>
 </section>
 
@@ -191,7 +191,7 @@ pagina("/hoe-het-werkt/", "Hoe het werkt",
   <p class="intro smal">Een sjabloon bestaat bij ons uit twee delen: de vaste tekst van jullie rapporten, en de
   vragen die bepalen wat er in een rapport komt. Dat leggen we één keer goed vast. Daarna doorloopt elk nieuw
   rapport dezelfde stappen, en kost een rapport je minder tijd.</p>
-  <div class="acties"><a class="knop licht" href="/schema/">Bekijk het als animatie</a></div>
+  <div class="acties"><a class="knop licht" href="/video/">Bekijk het als animatie</a></div>
 </section>
 
 <section aria-labelledby="eenmalig">
@@ -270,7 +270,7 @@ pagina("/herkomst-en-controle/", "Herkomst en controle",
 <section aria-labelledby="volgen">
   <h2 id="volgen">Eén regel, drie bronnen</h2>
   <div class="spoor">
-    <p class="zin">Op de gevel aan de <mark>Dorpsstraat</mark> is de geluidbelasting <mark class="b">54 dB</mark>,
+    <p class="zin">Op de gevel aan de <mark>Beukenlaan</mark> is de geluidbelasting <mark class="b">54 dB</mark>,
     en daarmee <mark class="g">hoger dan de standaardwaarde</mark>.</p>
     <ul>
       <li><span style="background:var(--geel)"></span>Uit de offerte, met het letterlijke citaat. Door jou bevestigd.</li>
@@ -407,4 +407,33 @@ pagina(VOORZET, "Kosteloze voorzet",
   <p class="smal">Dan weet degene die je belde of mailde al waar het over gaat. Antwoord op dat bericht, of mail
   naar <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 </section>
+""")
+
+# ---------------------------------------------------------------- in beeld
+# Twee animaties onder elkaar, elk een eigen bestand in video/ (met de hand gemaakt, niet door dit script).
+# De eerste animatie (schema/index.html) blijft staan en is hieronder gelinkt.
+pagina("/video/", "In beeld",
+       "Twee korte animaties: hoe je met Regelrapport een rapport maakt, en wat er achter één alinea zit.",
+       f"""
+<section>
+  <p class="boven">In beeld</p>
+  <h1 style="max-width:20ch">Zo maak je een rapport.</h1>
+  <p class="intro smal">Van sjabloon tot eindcontrole, in een verzonnen project.</p>
+  <iframe class="film" id="film-a" src="werkstuk/?embed=1" title="Animatie: zo maak je een rapport" loading="lazy"></iframe>
+</section>
+
+<section aria-labelledby="alinea">
+  <h2 id="alinea">Wat er achter één alinea zit</h2>
+  <p class="smal">Dezelfde alinea, nu van de andere kant: waar elk deel vandaan komt.</p>
+  <iframe class="film" id="film-b" src="alinea/?embed=1" title="Animatie: wat er achter één alinea zit" loading="lazy"></iframe>
+  <p class="voetnoot"><a href="/schema/">Bekijk ook de eerste animatie: van onderzoeken naar rapport</a></p>
+</section>
+<script>
+addEventListener("message", e => {{
+  const h = e.data && e.data.regelrapportHoogte;
+  if (!h) return;
+  for (const f of document.querySelectorAll("iframe.film")) if (f.contentWindow === e.source) f.style.height = h + "px";
+}});
+</script>
+{OPROEP}
 """)

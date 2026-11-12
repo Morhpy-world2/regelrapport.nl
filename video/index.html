@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- Gemaakt door bouw.py. Pas de tekst daar aan en draai `python3 bouw.py`. -->
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>In beeld · Regelrapport</title>
+<meta name="description" content="Twee korte animaties: hoe je met Regelrapport een rapport maakt, en wat er achter één alinea zit.">
+<link rel="canonical" href="https://regelrapport.nl/video/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='3' width='20' height='26' rx='3' fill='%23fff' stroke='%231f2b4f' stroke-width='2.5'/%3E%3Cpath d='M11 10h10M11 15h10M11 20h6' stroke='%231f2b4f' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preload" href="/fonts/kalam-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/stijl.css">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://regelrapport.nl/video/">
+<meta property="og:title" content="In beeld · Regelrapport">
+<meta property="og:description" content="Twee korte animaties: hoe je met Regelrapport een rapport maakt, en wat er achter één alinea zit.">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:image" content="https://regelrapport.nl/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<header class="kopbalk"><div class="breed">
+  <a class="naam" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="3" width="20" height="26" rx="3" fill="#fff" stroke="#1f2b4f" stroke-width="2.5"/><path d="M11 10h10M11 15h10M11 20h6" stroke="#1f2b4f" stroke-width="2.5" stroke-linecap="round"/></svg>Regelrapport</a>
+  <nav aria-label="Hoofdmenu"><ul class="menu"><li><a href="/hoe-het-werkt/">Hoe het werkt</a></li><li><a href="/herkomst-en-controle/">Herkomst en controle</a></li><li><a href="/voor-wie/">Voor wie</a></li>
+    <li><a class="knop klein" href="/voorzet/">Kosteloze voorzet</a></li></ul></nav>
+</div></header>
+<main class="breed">
+<section>
+  <p class="boven">In beeld</p>
+  <h1 style="max-width:20ch">Zo maak je een rapport.</h1>
+  <p class="intro smal">Van sjabloon tot eindcontrole, in een verzonnen project.</p>
+  <iframe class="film" id="film-a" src="werkstuk/?embed=1" title="Animatie: zo maak je een rapport" loading="lazy"></iframe>
+</section>
+
+<section aria-labelledby="alinea">
+  <h2 id="alinea">Wat er achter één alinea zit</h2>
+  <p class="smal">Dezelfde alinea, nu van de andere kant: waar elk deel vandaan komt.</p>
+  <iframe class="film" id="film-b" src="alinea/?embed=1" title="Animatie: wat er achter één alinea zit" loading="lazy"></iframe>
+  <p class="voetnoot"><a href="/schema/">Bekijk ook de eerste animatie: van onderzoeken naar rapport</a></p>
+</section>
+<script>
+addEventListener("message", e => {
+  const h = e.data && e.data.regelrapportHoogte;
+  if (!h) return;
+  for (const f of document.querySelectorAll("iframe.film")) if (f.contentWindow === e.source) f.style.height = h + "px";
+});
+</script>
+
+<section class="oproep" aria-labelledby="voorzet">
+  <h2 id="voorzet">Zien hoe dit er bij jullie uitziet?</h2>
+  <p class="smal">We maken kosteloos een voorzet voor jullie omgeving, op basis van een aantal van jullie eigen
+  rapporten. Daarna komen we hem graag laten zien.</p>
+  <div class="acties"><a class="knop" href="/voorzet/">Vraag een kosteloze voorzet aan</a></div>
+</section>
+</main>
+<footer class="voet"><div class="breed">
+  <p>Regelrapport is van Morphy B.V. · KVK 95783652</p>
+  <p><a href="mailto:info@morphy.world">info@morphy.world</a></p>
+  <p><a href="/video/">In beeld</a></p>
+  <p><a href="https://www.morphy.world">www.morphy.world</a></p>
+</div></footer>
+</body>
+</html>

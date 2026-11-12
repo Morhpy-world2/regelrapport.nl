@@ -79,7 +79,7 @@ def pagina(slug, titel, omschrijving, inhoud):
     print("geschreven:", pad.relative_to(DOEL))
 
 
-VOORBEELD_ZIN = """<p class="fragment-zin">Op de gevel aan de <mark class="m1">Dorpsstraat</mark><sup>1</sup> is de
+VOORBEELD_ZIN = """<p class="fragment-zin">Op de gevel aan de <mark class="m1">Beukenlaan</mark><sup>1</sup> is de
       geluidbelasting <mark class="m2">54 dB</mark><sup>2</sup>, en daarmee <mark class="m3">hoger dan de
       standaardwaarde</mark><sup>3</sup>.</p>"""
 

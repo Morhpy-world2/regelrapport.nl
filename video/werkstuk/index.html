@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Zo maak je een rapport · Regelrapport</title>
-<meta name="description" content="In tien stappen door één rapport: sjabloon kiezen, stukken aanleveren, vragen bevestigen, de tekst nalezen en laten nakijken. Een verzonnen voorbeeld.">
+<meta name="description" content="Eén rapport in elf stappen: sjabloon kiezen, stukken aanleveren, antwoorden bevestigen, de tekst bewerken en laten nakijken. Een verzonnen voorbeeld.">
 <style>
 /* Video A: de eindgebruiker loopt door één werkstuk. Een nagebouwd, vereenvoudigd venster in de kleuren van de
    proeftuin. Elke scène is een rij stappen; de eindtoestand van scène N is alle stappen tot en met N, direct gezet.
@@ -42,11 +42,12 @@ body{margin:0;font:16px/1.5 var(--ui);-webkit-font-smoothing:antialiased;
 .tabs b{font-weight:500;color:var(--g700);padding:6px 12px;border-radius:6px}
 #app.is-ws .wsnaam,#app.is-ws .tabs{opacity:1}
 #app[data-tab="context"] .tabs [data-t="context"],#app[data-tab="vragen"] .tabs [data-t="vragen"],
-#app[data-tab="document"] .tabs [data-t="document"],#app[data-tab="eind"] .tabs [data-t="eind"]{background:var(--merk-50);color:var(--merk-700);font-weight:700}
+#app[data-tab="document"] .tabs [data-t="document"],#app[data-tab="eind"] .tabs [data-t="eind"],#app[data-tab="kennis"] .tabs [data-t="kennis"]{background:var(--merk-50);color:var(--merk-700);font-weight:700}
 
 .paneel{position:absolute;left:0;right:0;top:48px;bottom:0;padding:20px 24px;display:none;overflow:hidden}
 #app[data-tab="start"] .p-start,#app[data-tab="context"] .p-context,#app[data-tab="vragen"] .p-vragen,
-#app[data-tab="document"] .p-document,#app[data-tab="eind"] .p-eind{display:block}
+#app[data-tab="document"] .p-document,#app[data-tab="eind"] .p-eind,#app[data-tab="kennis"] .p-kennis{display:block}
+.tabs .los{margin-left:14px;position:relative}.tabs .los::before{content:"";position:absolute;left:-9px;top:6px;bottom:6px;width:1px;background:var(--g300)}
 h2{font-size:19px;margin:0 0 4px}h3{font-size:15px;margin:0}
 .zacht{color:var(--g500)}
 .knop{display:inline-flex;align-items:center;gap:6px;background:var(--merk);color:#fff;font-weight:600;border-radius:7px;padding:8px 16px;border:1px solid var(--merk)}
@@ -197,6 +198,39 @@ h2{font-size:19px;margin:0 0 4px}h3{font-size:15px;margin:0}
 .voorstelkaart .gedaan{display:none;color:var(--amber);font-weight:700;font-size:13.5px}
 #app.is-overgenomen .voorstelkaart .gedaan{display:inline}#app.is-overgenomen #neemover{opacity:.4}
 
+/* kennis: wetten en rapporten */
+.ktabs{display:flex;gap:4px;border-bottom:1px solid var(--g200);padding-bottom:10px;margin-bottom:14px}
+.ktabs b{font-weight:500;color:var(--g700);padding:5px 12px;border-radius:6px}
+#app[data-ksub="wetten"] .ktabs [data-k="wetten"],#app[data-ksub="rapporten"] .ktabs [data-k="rapporten"]{background:var(--merk-50);color:var(--merk-700);font-weight:700}
+.k-wet,.k-rap{display:none}
+#app[data-ksub="wetten"] .k-wet,#app[data-ksub="rapporten"] .k-rap{display:block}
+.zoekrij{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.zoek{width:300px;height:38px;border:1px solid var(--g300);border-radius:7px;background:#fff;padding:0 12px;display:flex;align-items:center;font-size:15px}
+.zoek:empty::before{content:attr(data-leeg);color:var(--g400)}
+.wetchip{font-size:14px;font-weight:600;border:1px solid var(--g300);background:#fff;border-radius:6px;padding:4px 10px 4px 8px;color:var(--g800)}
+.wetchip::before{content:"✓";display:inline-grid;place-items:center;width:15px;height:15px;border-radius:3px;background:var(--merk);color:#fff;font-size:11px;margin-right:7px}
+.kgrid{display:grid;grid-template-columns:300px 1fr;gap:18px;margin-top:16px;height:520px}
+.boom{background:#fff;border:1px solid var(--g200);border-radius:10px;padding:14px 16px;font-size:14.5px}
+.boom .reg{display:inline-block;font-weight:700;color:#fff;background:var(--merk);border-radius:999px;padding:2px 12px;margin-bottom:8px}
+.boom div{padding:5px 0;color:var(--g700)}.boom div::before{content:"▸";margin-right:8px;color:var(--g400)}
+.boom div.open{font-weight:700;color:var(--g800)}.boom div.open::before{content:"▾"}
+.boom div.blad{margin-left:22px;border-radius:6px;padding:5px 8px}.boom div.blad::before{content:none}
+#app.is-wetgevonden .boom div.blad{background:var(--merk-50);color:var(--merk-700);font-weight:700}
+.artikel{background:#fff;border:1px solid var(--g200);border-radius:10px;padding:18px 22px}
+.artikel .leeg1{color:var(--g400)}#app.is-wetgevonden .artikel .leeg1{display:none}
+.artikel .tekst{display:none}#app.is-wetgevonden .artikel .tekst{display:block}
+.artikel h3{font-size:17px}.artikel .stand{font-size:13px;color:var(--g500);margin:2px 0 12px}
+.artikel p{font-family:var(--doc);font-size:17px;line-height:1.55;margin:0}
+.artikel mark{background:var(--amber-100);border-radius:3px;padding:0 3px;color:inherit}
+.verz div{padding:8px 10px;border-radius:7px;font-size:14.5px;display:flex;justify-content:space-between;gap:10px}.verz div::before{content:none}
+.verz div.aan{background:var(--merk-50);color:var(--merk-700);font-weight:700}
+.verz small{font-weight:600;white-space:nowrap}
+.mappen{margin-top:10px;border-top:1px solid var(--g200);padding-top:8px}
+.tabel{background:#fff;border:1px solid var(--g200);border-radius:10px;overflow:hidden;font-size:14.5px}
+.tabel .rijt{display:grid;grid-template-columns:1fr 70px 60px;gap:10px;padding:10px 16px;border-top:1px solid var(--g200)}
+.tabel .rijt:first-child{border-top:0;background:var(--g100);font-weight:700;font-size:13px;color:var(--g500);text-transform:uppercase;letter-spacing:.04em}
+.tabel .pdf{color:var(--merk-700);font-weight:600}
+
 /* eindcontrole */
 .p-eind .twee{display:grid;grid-template-columns:380px 1fr;gap:20px;height:100%}
 .keuze{border:1px solid var(--g200);border-radius:8px;padding:8px 12px;margin-top:8px;display:flex;gap:10px;align-items:center}
@@ -219,17 +253,20 @@ h2{font-size:19px;margin:0 0 4px}h3{font-size:15px;margin:0}
 #app.is-einde .einde{opacity:1;pointer-events:auto}
 .einde .kaart{width:620px;text-align:center;padding:34px 36px;transform:translateY(16px)}
 #app.is-einde .einde .kaart{transform:none}
-.einde h2{font-size:28px}.einde p{font-size:17px;color:var(--g700);margin:8px 0 22px}
 .einde a.knop{font-size:17px;padding:11px 22px;text-decoration:none}
 .einde a.terug{display:block;margin-top:16px;color:var(--merk-700);font-weight:600}
 
+/* zoom: de hele inhoud van het venster schuift en schaalt, de cursor zit erin en beweegt mee */
+#laag{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0;transition:transform .7s cubic-bezier(.4,0,.2,1)!important}
+#app.inst #laag{transition:none!important}
+
 /* cursor */
 #cur{position:absolute;left:940px;top:560px;width:0;height:0;z-index:60;pointer-events:none;
-  transition:left .7s cubic-bezier(.4,0,.2,1),top .7s cubic-bezier(.4,0,.2,1)!important}
+  transition:left .35s cubic-bezier(.4,0,.2,1),top .35s cubic-bezier(.4,0,.2,1)!important}
 #app.inst #cur{transition:none!important}
 #cur svg{position:absolute;left:-3px;top:-2px;width:26px;height:26px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));transition:none!important}
 #cur::after{content:"";position:absolute;left:-18px;top:-18px;width:36px;height:36px;border-radius:50%;border:3px solid var(--merk);opacity:0;transition:none!important}
-#cur.klik::after{animation:klik .5s ease-out}
+#cur.klik::after{animation:klik .4s ease-out}
 @keyframes klik{0%{opacity:.9;transform:scale(.3)}100%{opacity:0;transform:scale(1.3)}}
 
 /* onder de stage */
@@ -247,14 +284,20 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--merk);outline-offse
 .stippen button.nu::before{background:var(--merk);transform:scale(1.35)}
 .voet{display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between;margin-top:14px;font-size:14px;color:var(--g500)}
 .voet a{color:var(--merk-700);font-weight:600}
-@media (prefers-reduced-motion:reduce){#app *,#cur{transition:none!important;animation:none!important}}
+@media (prefers-reduced-motion:reduce){#app *,#cur,#laag{transition:none!important;animation:none!important}}
+
+/* ingesloten in een andere pagina (?embed=1): geen titel, geen link terug, geen marge */
+html.embed,html.embed body{background:transparent}
+html.embed body{padding:0}
+html.embed .pagina{max-width:none}
+html.embed .kop,html.embed .voet a{display:none}
 </style>
 </head>
 <body>
 <div class="pagina">
   <header class="kop">
     <h1>Zo maak je een rapport</h1>
-    <p>Van sjabloon tot eindcontrole, in tien stappen.</p>
+    <p>Eén rapport, van sjabloon tot eindcontrole.</p>
   </header>
 
   <div class="wrap" id="wrap"><div id="app" data-tab="start" aria-hidden="true"></div></div>
@@ -273,11 +316,11 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--merk);outline-offse
 
 <script>
 /* ── Het venster: alles staat er vanaf het begin, de stappen zetten klassen aan ── */
-const VENSTER = `
+const VENSTER = `<div id="laag">
 <div class="balk">
   <span class="logo"><i></i>Regelrapport</span>
-  <span class="wsnaam">Dorpsstraat, 12 woningen<small>Akoestisch onderzoek wegverkeer</small></span>
-  <nav class="tabs"><b data-t="context">Context</b><b data-t="vragen">Vragen</b><b data-t="document">Document</b><b data-t="eind">Eindcontrole</b></nav>
+  <span class="wsnaam">Lindenhof, 12 woningen<small>Akoestisch onderzoek wegverkeer</small></span>
+  <nav class="tabs"><b data-t="context">Context</b><b data-t="vragen">Vragen</b><b data-t="document">Document</b><b data-t="eind">Eindcontrole</b><b data-t="kennis" class="los">Kennis</b></nav>
 </div>
 
 <section class="paneel p-start">
@@ -301,12 +344,12 @@ const VENSTER = `
   <div class="slots">
     <div class="slot" id="s-off"><h3>Offerte</h3>
       <div class="st"><span class="nee">Ontbreekt nog. Sleep het bestand hierheen.</span><span class="ja">✓ aangeleverd</span></div>
-      <div class="bestand"><i></i><div><b>Offerte Dorpsstraat</b><small>3 pagina's</small></div></div></div>
+      <div class="bestand"><i></i><div><b>Offerte Lindenhof</b><small>3 pagina's</small></div></div></div>
     <div class="slot" id="s-rek"><h3>Rekenresultaten</h3>
       <div class="st"><span class="nee">Ontbreekt nog. Sleep het bestand hierheen.</span><span class="ja">✓ aangeleverd</span></div>
       <div class="bestand"><i></i><div><b>Rekenresultaten wegverkeer</b><small>14 rekenpunten</small></div></div></div>
     <div class="slot"><h3>Wat jij zelf weet</h3>
-      <div class="st">Jij bent ook een bron.</div>
+      <div class="st">Eigen inbreng</div>
       <div class="inbreng">Typ hier wat niet in de stukken staat.</div></div>
   </div>
   <div class="onder"><span class="zacht">2 stukken aangeleverd</span><span class="knop" id="naarvragen">Naar de vragen →</span></div>
@@ -322,7 +365,7 @@ const VENSTER = `
         <div class="vkop"><span class="nr">1a</span>Wat wordt er gebouwd?</div>
         <div class="leegtxt">Nog geen antwoord.</div>
         <div class="voorstel"><div class="rij"><span class="waarde">12 grondgebonden woningen</span><span class="label">voorstel</span><span class="bev">✓ bevestig</span><span class="ok">✓ bevestigd door jou</span></div>
-          <div class="bron"><b>Offerte:</b> <q>… de bouw van twaalf grondgebonden woningen aan de Dorpsstraat …</q></div></div>
+          <div class="bron"><b>Offerte:</b> <q>… de bouw van twaalf grondgebonden woningen aan de Beukenlaan …</q></div></div>
       </div>
       <div class="vraag leeg" data-q="2" id="q2">
         <div class="vkop"><span class="nr">2a</span>Wat is de hoogste geluidbelasting op de gevel?</div>
@@ -333,7 +376,7 @@ const VENSTER = `
       <div class="vraag leeg" data-q="3" id="q3">
         <div class="vkop"><span class="nr">1c</span>Wat gebeurt er met de bestaande bebouwing?</div>
         <div class="leegtxt">Nog geen antwoord.</div>
-        <div class="openblok"><div class="bron" style="margin-top:0">Geen bron gevonden in de stukken. Deze vraag is voor jou.</div>
+        <div class="openblok"><div class="bron" style="margin-top:0">Geen bron gevonden in de stukken.</div>
           <div class="rij" style="margin-top:7px"><span class="opt">Blijft staan</span><span class="opt opt2">Wordt gesloopt</span><span class="opt">Onbebouwd</span><span class="lnk" id="andere">Zo deden andere rapporten ›</span></div></div>
         <div class="voorstel"><div class="rij"><span class="waarde">Wordt gesloopt</span><span class="ok">✓ door jou beantwoord</span><span class="lnk" id="andere2">Zo deden andere rapporten ›</span></div>
           <div class="bron"><b>Bron:</b> jij. Stond niet in de stukken.</div></div>
@@ -348,14 +391,14 @@ const VENSTER = `
 
     <div class="vel voorbeeld">
       <span class="tag0">Het rapport</span>
-      <div class="titel">Akoestisch onderzoek wegverkeer</div><div class="sub">Dorpsstraat, 12 woningen</div>
+      <div class="titel">Akoestisch onderzoek wegverkeer</div><div class="sub">Lindenhof, 12 woningen</div>
       <h4>Inleiding</h4>
-      <p>Dit onderzoek gaat over de bouw van <span class="c leeg" data-q="1"><span class="ph">wat er gebouwd wordt</span><span class="val">12 grondgebonden woningen</span></span> aan de Dorpsstraat.
+      <p>Dit onderzoek gaat over de bouw van <span class="c leeg" data-q="1"><span class="ph">wat er gebouwd wordt</span><span class="val">12 grondgebonden woningen</span></span> aan de Beukenlaan.
         <span class="c leeg" data-q="3"><span class="ph">bestaande bebouwing</span><span class="val">De bestaande bebouwing wordt gesloopt.</span></span></p>
       <h4>Toetsingskader</h4>
       <p>Voor wegverkeer geldt een standaardwaarde van 53 dB.</p>
       <h4>Resultaten</h4>
-      <p>Op de gevel aan de Dorpsstraat is de geluidbelasting ten hoogste <span class="c leeg" data-q="2"><span class="ph">hoogste waarde</span><span class="val">54 dB</span></span>.
+      <p>Op de gevel aan de Beukenlaan is de geluidbelasting ten hoogste <span class="c leeg" data-q="2"><span class="ph">hoogste waarde</span><span class="val">54 dB</span></span>.
         Daarmee <span class="c leeg" data-q="4"><span class="ph">wel of niet overschreden</span><span class="val">wordt de standaardwaarde van 53 dB overschreden</span></span>.</p>
       <div class="maat"><h4>Maatregelen<span class="erbij">erbij door jouw antwoord op 2c</span></h4>
         <p>Omdat de standaardwaarde wordt overschreden, is onderzocht welke maatregelen de geluidbelasting kunnen verlagen.</p></div>
@@ -386,9 +429,9 @@ const VENSTER = `
 <section class="paneel p-document">
   <div class="twee">
     <div class="vel doc">
-      <div class="titel">Akoestisch onderzoek wegverkeer</div><div class="sub">Dorpsstraat, 12 woningen</div>
+      <div class="titel">Akoestisch onderzoek wegverkeer</div><div class="sub">Lindenhof, 12 woningen</div>
       <h4>Inleiding</h4>
-      <p>Dit onderzoek gaat over de bouw van <span class="g">12 grondgebonden woningen</span> aan de Dorpsstraat. <span class="g">De bestaande bebouwing wordt gesloopt.</span></p>
+      <p>Dit onderzoek gaat over de bouw van <span class="g">12 grondgebonden woningen</span> aan de Beukenlaan. <span class="g">De bestaande bebouwing wordt gesloopt.</span></p>
       <h4>Toetsingskader</h4>
       <p>Voor wegverkeer geldt een standaardwaarde van 53 dB.</p>
       <h4>Resultaten</h4>
@@ -406,8 +449,8 @@ const VENSTER = `
       <div class="sub-p s-opbouw">
         <h3>Waar dit stuk op rust</h3>
         <div class="onderdeel"><i></i><b>Vaste tekst</b><span>Uit jullie sjabloon. Zo staat het in jullie eerdere rapporten.</span></div>
-        <div class="onderdeel"><i style="background:var(--blauw-50);border-color:var(--blauw)"></i><b>Dorpsstraat</b>
-          <span>Offerte: <q>… aan de Dorpsstraat …</q> <span class="vinkje">✓ bevestigd</span></span></div>
+        <div class="onderdeel"><i style="background:var(--blauw-50);border-color:var(--blauw)"></i><b>Beukenlaan</b>
+          <span>Offerte: <q>… aan de Beukenlaan …</q> <span class="vinkje">✓ bevestigd</span></span></div>
         <div class="onderdeel"><i style="background:var(--merk-100);border-color:var(--merk)"></i><b>54 dB</b>
           <span>Rekenresultaten: gevel noord, rekenpunt 3. <span class="vinkje">✓ bevestigd</span></span></div>
         <div class="onderdeel"><i style="background:var(--groen-100);border-color:var(--groen)"></i><b>Standaardwaarde overschreden</b>
@@ -431,10 +474,50 @@ const VENSTER = `
         <div class="bel denk">Zoekt in de wet en in eerdere rapporten …</div>
         <div class="bel ant">Ja. De standaardwaarde voor wegverkeer is 53 dB, dus 54 dB is een overschrijding. Een vergelijkbaar rapport noemt er ook bij om welke gevel het gaat.
           <div class="chips"><span class="chip">Bkl: standaardwaarde wegverkeer</span><span class="chip">Openbaar rapport: 14 woningen aan een dorpsweg</span></div></div>
-        <div class="voorstelkaart"><b>Voorstel</b><div>Noem de gevel: <q style="font-family:var(--doc);font-style:italic">… op de noordgevel aan de Dorpsstraat …</q></div>
-          <div class="rij"><span class="knop klein" id="neemover">Neem over als voorstel</span><span class="gedaan">Staat geel in de tekst. Jij bevestigt.</span></div></div>
+        <div class="voorstelkaart"><b>Voorstel</b><div>Noem de gevel: <q style="font-family:var(--doc);font-style:italic">… op de noordgevel aan de Beukenlaan …</q></div>
+          <div class="rij"><span class="knop klein" id="neemover">Neem over als voorstel</span><span class="gedaan">Staat geel in de tekst, te bevestigen.</span></div></div>
       </div>
     </aside>
+  </div>
+</section>
+
+<section class="paneel p-kennis">
+  <div class="ktabs"><b data-k="wetten">Wetten</b><b data-k="rapporten">Rapporten</b></div>
+
+  <div class="k-wet">
+    <div class="zoekrij"><div class="zoek" id="wetzoek" data-leeg="zoek in de wet"></div>
+      <span class="wetchip">Omgevingswet</span><span class="wetchip">Bkl</span><span class="wetchip">Bbl</span><span class="wetchip">Bal</span><span class="wetchip">Omgevingsbesluit</span><span class="wetchip">Omgevingsregeling</span></div>
+    <div class="kgrid">
+      <div class="boom"><span class="reg">Bkl</span>
+        <div>Hoofdstuk 1</div><div>Hoofdstuk 2</div><div>Hoofdstuk 3</div><div>Hoofdstuk 4</div>
+        <div class="open">Hoofdstuk 5</div><div class="blad">Geluid door wegen</div>
+        <div>Hoofdstuk 6</div><div>Hoofdstuk 7</div></div>
+      <div class="artikel"><div class="leeg1">Kies links een artikel, of zoek.</div>
+        <div class="tekst"><h3>Bkl · standaardwaarde geluid wegverkeer</h3><div class="stand">Geldende tekst</div>
+          <p>Voor het geluid van een gemeenteweg op een geluidgevoelig gebouw geldt een <mark>standaardwaarde van 53 dB</mark>.</p></div></div>
+    </div>
+  </div>
+
+  <div class="k-rap">
+    <div class="zoekrij"><div class="zoek" data-leeg="zoek op titel, opsteller, gemeente"></div><span class="zacht">Openbare stukken onder de Omgevingswet</span></div>
+    <div class="kgrid">
+      <div class="boom verz">
+        <div class="aan">Akoestische rapporten<small>ruim 1.200</small></div>
+        <div>Stikstofonderzoeken<small>ruim 1.600</small></div>
+        <div>Verkeersonderzoeken<small>ruim 1.100</small></div>
+        <div class="mappen zacht" style="display:block;font-size:13px;text-transform:uppercase;letter-spacing:.05em;font-weight:700">Mappen</div>
+        <div>Woningbouw</div><div>Bedrijven</div><div>Infrastructuur</div><div>Maatschappelijk en gemengd</div>
+      </div>
+      <div><div class="tabel">
+        <div class="rijt"><span>Rapport</span><span>Jaar</span><span></span></div>
+        <div class="rijt"><span>Akoestisch onderzoek 14 woningen aan een dorpsweg</span><span>2025</span><span class="pdf">pdf</span></div>
+        <div class="rijt"><span>Akoestisch onderzoek 9 woningen, inbreiding in de kern</span><span>2024</span><span class="pdf">pdf</span></div>
+        <div class="rijt"><span>Akoestisch onderzoek 24 appartementen aan een doorgaande weg</span><span>2025</span><span class="pdf">pdf</span></div>
+        <div class="rijt"><span>Akoestisch onderzoek uitbreiding van een basisschool</span><span>2024</span><span class="pdf">pdf</span></div>
+        <div class="rijt"><span>Akoestisch onderzoek 30 woningen aan de dorpsrand</span><span>2025</span><span class="pdf">pdf</span></div>
+        <div class="rijt"><span>Akoestisch onderzoek 6 woningen op een voormalig erf</span><span>2024</span><span class="pdf">pdf</span></div>
+      </div></div>
+    </div>
   </div>
 </section>
 
@@ -447,7 +530,7 @@ const VENSTER = `
       <div class="keuze">Juridisch kader</div>
       <div class="keuze aan">Volledig</div>
       <div style="margin-top:16px"><span class="knop" id="draai">Eindcontrole draaien</span></div>
-      <div class="dekking"><span class="a">Nog niet gedraaid. Wat niet is beoordeeld, is geen akkoord.</span><span class="b">Het rapport wordt naast de wet en de rekenwaarden gelegd …</span>
+      <div class="dekking"><span class="a">Nog niet gedraaid.</span><span class="b">Het rapport wordt naast de wet en de rekenwaarden gelegd …</span>
         <span class="c"><b>Getoetst:</b> bronnen en getallen, rekenwaarden, wet en regelgeving. 3 meldingen.</span></div>
     </div>
     <div class="meldingen">
@@ -464,126 +547,142 @@ const VENSTER = `
 </section>
 
 <div class="einde"><div class="kaart">
-  <h2>Het rapport staat.</h2>
-  <p>Elk stuk is door jou bevestigd, en bij elk stuk zie je waar het op rust.</p>
   <a class="knop" href="/voorzet/">Vraag een kosteloze voorzet aan</a>
   <a class="terug" href="/">Terug naar regelrapport.nl</a>
 </div></div>
 
 <div id="cur"><svg viewBox="0 0 24 24"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.4-7.3L5 18z" fill="#fff" stroke="#28232c" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-`;
+</div>`;
 
 const ALINEA = {
-  1: 'Op de gevel aan de <span class="k ka">Dorpsstraat</span> is de geluidbelasting ten hoogste <span class="k kb">54 dB</span>. Daarmee <span class="k kc">wordt de standaardwaarde van 53 dB overschreden</span>.',
-  2: 'De geluidbelasting op de gevel aan de <span class="k ka">Dorpsstraat</span> is ten hoogste <span class="k kb">54 dB</span>. Dat is <span class="k kc">hoger dan de standaardwaarde van 53 dB</span>.',
-  3: 'De geluidbelasting op de <span class="nieuw">noordgevel</span> aan de <span class="k ka">Dorpsstraat</span> is ten hoogste <span class="k kb">54 dB</span>. Dat is <span class="k kc">hoger dan de standaardwaarde van 53 dB</span>.<span class="bevlabel">✓ bevestig</span>',
-  4: 'De geluidbelasting op de <span class="nieuw vast">noordgevel</span> aan de <span class="k ka">Dorpsstraat</span> is ten hoogste <span class="k kb">54 dB</span>. Dat is <span class="k kc">hoger dan de standaardwaarde van 53 dB</span>.',
+  1: 'Op de gevel aan de <span class="k ka">Beukenlaan</span> is de geluidbelasting ten hoogste <span class="k kb">54 dB</span>. Daarmee <span class="k kc">wordt de standaardwaarde van 53 dB overschreden</span>.',
+  2: 'De geluidbelasting op de gevel aan de <span class="k ka">Beukenlaan</span> is ten hoogste <span class="k kb">54 dB</span>. Dat is <span class="k kc">hoger dan de standaardwaarde van 53 dB</span>.',
+  3: 'De geluidbelasting op de <span class="nieuw">noordgevel</span> aan de <span class="k ka">Beukenlaan</span> is ten hoogste <span class="k kb">54 dB</span>. Dat is <span class="k kc">hoger dan de standaardwaarde van 53 dB</span>.<span class="bevlabel">✓ bevestig</span>',
+  4: 'De geluidbelasting op de <span class="nieuw vast">noordgevel</span> aan de <span class="k ka">Beukenlaan</span> is ten hoogste <span class="k kb">54 dB</span>. Dat is <span class="k kc">hoger dan de standaardwaarde van 53 dB</span>.',
 };
 
 const app = document.getElementById("app"), wrap = document.getElementById("wrap");
 const $ = s => app.querySelector(s);
 let run = 0, gepauzeerd = false, bezig = false, scene = 0;
 const RUSTIG = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const PARAMS = new URLSearchParams(location.search), EMBED = PARAMS.get("embed") === "1";
+if (EMBED) document.documentElement.classList.add("embed");
 
 /* ── hulpjes voor de stappen ── */
-function naar(sel) {            // de cursor naar het midden van een onderdeel
-  const el = $(sel), r = el.getBoundingClientRect(), a = app.getBoundingClientRect(), f = 1280 / a.width, c = $("#cur");
-  c.style.left = Math.round((r.left + r.width / 2 - a.left) * f) + "px";
-  c.style.top = Math.round((r.top + r.height / 2 - a.top) * f + 6) + "px";   // iets onder het midden, zodat de pijl de tekst niet afdekt
+function plek(el) {            // midden van een onderdeel, in de eigen eenheden van de laag (1280 × 720), ook tijdens een zoom
+  const r = el.getBoundingClientRect(), a = $("#laag").getBoundingClientRect(), f = 1280 / a.width;
+  return { x: (r.left + r.width / 2 - a.left) * f, y: (r.top + r.height / 2 - a.top) * f };
+}
+function naar(sel) {            // de cursor naar een onderdeel, iets onder het midden zodat de pijl de tekst niet afdekt
+  const p = plek($(sel)), c = $("#cur");
+  c.style.left = Math.round(p.x) + "px"; c.style.top = Math.round(p.y + 6) + "px";
+}
+function zoom(f, x, y) {        // zoom f keer in met (x, y) in het midden; blijft binnen de randen. zoom(1) = uit
+  const tx = Math.min(0, Math.max(1280 - 1280 * f, 640 - x * f)), ty = Math.min(0, Math.max(720 - 720 * f, 360 - y * f));
+  $("#laag").style.transform = f === 1 ? "none" : "translate(" + tx + "px," + ty + "px) scale(" + f + ")";
 }
 function klik(inst) { if (inst) return; const c = $("#cur"); c.classList.remove("klik"); void c.offsetWidth; c.classList.add("klik"); }
 const aan = k => app.classList.add("is-" + k), uit = k => app.classList.remove("is-" + k);   // toestand van het venster, als klasse is-…
-const tab = t => app.dataset.tab = t, sub = s => app.dataset.sub = s;
+const tab = t => app.dataset.tab = t, sub = s => app.dataset.sub = s, ksub = s => app.dataset.ksub = s;
 function setQ(n, st) { app.querySelectorAll('[data-q="' + n + '"]').forEach(e => { e.classList.remove("leeg", "geel", "groen", "open"); e.classList.add(st); }); }
 const alinea = v => $("#alinea").innerHTML = ALINEA[v];
 function typ(sel, tekst, inst) {
   const el = $(sel);
   if (inst) { el.textContent = tekst; return; }
   const id = run;
-  return (async () => { for (let i = 1; i <= tekst.length; i++) { if (id !== run) return; el.textContent = tekst.slice(0, i); await wacht(34, id); } })();
+  return (async () => { for (let i = 1; i <= tekst.length; i++) { if (id !== run) return; el.textContent = tekst.slice(0, i); await wacht(16, id); } })();
 }
 
-/* ── De scènes: [wachttijd in ms vóór de stap, stap]. na = leestijd na de laatste stap ── */
+/* ── De scènes: [wachttijd in ms vóór de stap, stap]. na = leestijd na de laatste stap.
+   Samen hooguit 45 seconden. Na een naar() minstens 350 ms wachten: zo lang doet de cursor erover. ── */
 const SCENES = [
-  { cap: "Je begint met het sjabloon van jullie bureau.", na: 1700, stappen: [
-    [700, () => naar("#naam")],
-    [800, i => { klik(i); return typ("#naam", "Dorpsstraat, 12 woningen", i); }],
-    [450, () => naar("#sjab")],
-    [800, i => { klik(i); aan("ddopen"); }],
-    [750, () => naar(".dd li:first-child")],
-    [850, i => { klik(i); uit("ddopen"); const s = $("#sjab"); s.classList.add("gekozen"); s.firstElementChild.textContent = "Akoestisch onderzoek wegverkeer"; }],
-    [650, () => naar("#maak")],
+  { cap: "Kies het sjabloon.", na: 700, stappen: [
+    [300, () => naar("#naam")],
+    [500, i => { klik(i); return typ("#naam", "Lindenhof, 12 woningen", i); }],
+    [250, () => naar("#sjab")],
+    [500, i => { klik(i); aan("ddopen"); }],
+    [450, () => naar(".dd li:first-child")],
+    [500, i => { klik(i); uit("ddopen"); const s = $("#sjab"); s.classList.add("gekozen"); s.firstElementChild.textContent = "Akoestisch onderzoek wegverkeer"; }],
+    [350, () => naar("#maak")],
   ]},
-  { cap: "De stukken van het project gaan erin.", na: 2300, stappen: [
-    [750, i => { klik(i); aan("ws"); tab("context"); }],
-    [900, () => $("#s-off").classList.add("in")],
-    [1100, () => $("#s-rek").classList.add("in")],
-    [1300, () => naar("#naarvragen")],
+  { cap: "Lever de stukken aan.", na: 900, stappen: [
+    [500, i => { klik(i); aan("ws"); tab("context"); }],
+    [350, () => $("#s-off").classList.add("in")],
+    [350, () => $("#s-rek").classList.add("in")],
+    [500, () => naar("#naarvragen")],
   ]},
-  { cap: "Het systeem leest de stukken en stelt per vraag een antwoord voor, met het citaat erbij.", na: 3600, stappen: [
-    [750, i => { klik(i); tab("vragen"); }],
-    [800, () => naar("#voorzet")],
-    [800, i => { klik(i); aan("laden"); }],
-    [1400, () => { uit("laden"); setQ(1, "geel"); }],
-    [750, () => setQ(2, "geel")],
-    [750, () => setQ(3, "open")],
-    [750, () => { setQ(4, "geel"); aan("opgehaald"); }],
+  { cap: "Het systeem stelt antwoorden voor, met het citaat erbij.", na: 2200, stappen: [
+    [500, i => { klik(i); tab("vragen"); }],
+    [450, () => naar("#voorzet")],
+    [500, i => { klik(i); aan("laden"); }],
+    [700, () => { uit("laden"); setQ(1, "geel"); zoom(1.22, 340, 330); }],   // inzoomen op de vragen
+    [350, () => setQ(2, "geel")],
+    [350, () => setQ(3, "open")],
+    [350, () => { setQ(4, "geel"); aan("opgehaald"); }],
   ]},
-  { cap: "Jij bevestigt, past aan of vult zelf in.", na: 2500, stappen: [
-    [500, () => naar("#q1 .bev")],
-    [850, i => { klik(i); setQ(1, "groen"); }],
-    [550, () => naar("#q2 .bev")],
-    [850, i => { klik(i); setQ(2, "groen"); }],
-    [650, () => naar("#q3 .opt2")],
-    [950, i => { klik(i); setQ(3, "groen"); }],
+  { cap: "Bevestig, of vul zelf in.", na: 1500, stappen: [
+    [300, () => { zoom(1); naar("#q1 .bev"); }],
+    [500, i => { klik(i); setQ(1, "groen"); }],
+    [300, () => naar("#q2 .bev")],
+    [500, i => { klik(i); setQ(2, "groen"); }],
+    [350, () => naar("#q3 .opt2")],
+    [550, i => { klik(i); setQ(3, "groen"); }],
   ]},
-  { cap: "Elk antwoord bepaalt wat er in het rapport komt.", na: 4200, stappen: [
-    [600, () => naar("#q4 .bev")],
-    [950, i => { klik(i); setQ(4, "groen"); aan("maat"); }],
+  { cap: "Het rapport groeit mee met je antwoorden.", na: 2200, stappen: [
+    [350, () => naar("#q4 .bev")],
+    [550, i => { klik(i); setQ(4, "groen"); aan("maat"); zoom(1.3, 960, 330); }],   // inzoomen op het rapport
   ]},
-  { cap: "Je ziet hoe eerdere rapporten dit deden: die van jullie, en ruim duizend openbare.", na: 6200, stappen: [
-    [600, () => naar("#andere2")],
-    [950, i => { klik(i); aan("lade"); }],
+  { cap: "Kijk hoe eerdere rapporten het deden.", na: 2500, stappen: [
+    [350, () => { zoom(1); naar("#andere2"); }],
+    [550, i => { klik(i); aan("lade"); }],
   ]},
-  { cap: "Klik op een stuk tekst en je ziet waar het op rust.", na: 5200, stappen: [
-    [400, () => naar('.tabs [data-t="document"]')],
-    [850, i => { klik(i); uit("lade"); tab("document"); alinea(1); }],
-    [900, () => naar("#alinea")],
-    [950, i => { klik(i); aan("sel"); sub("opbouw"); }],
+  { cap: "Alle wetten en rapporten staan erbij. Je kunt er zelf in zoeken.", na: 1700, stappen: [
+    [300, () => naar('.tabs [data-t="kennis"]')],
+    [450, i => { klik(i); uit("lade"); tab("kennis"); ksub("wetten"); }],
+    [400, () => naar("#wetzoek")],
+    [450, i => { klik(i); return typ("#wetzoek", "standaardwaarde wegverkeer", i); }],
+    [500, () => { aan("wetgevonden"); zoom(1.15, 560, 300); }],   // inzoomen op het artikel
+    [1400, () => { zoom(1); naar('.ktabs [data-k="rapporten"]'); }],
+    [500, i => { klik(i); ksub("rapporten"); }],
   ]},
-  { cap: "Herschrijf zelf of geef een opdracht. Elke versie blijft bewaard.", na: 4200, stappen: [
-    [500, () => naar('.subtabs [data-s="bewerken"]')],
-    [850, i => { klik(i); sub("bewerken"); }],
-    [900, () => naar("#korter")],
-    [850, i => { klik(i); aan("werkt"); }],
-    [1200, () => { uit("werkt"); alinea(2); aan("v2"); }],
+  { cap: "Klik op een alinea: je ziet waar hij op rust.", na: 1100, stappen: [
+    [300, () => naar('.tabs [data-t="document"]')],
+    [500, i => { klik(i); uit("lade"); tab("document"); alinea(1); }],
+    [500, () => naar("#alinea")],
+    [550, i => { klik(i); aan("sel"); sub("opbouw"); zoom(1.22, 760, 300); }],   // inzoomen op de alinea en de opbouw
+    [1700, () => zoom(1)],
   ]},
-  { cap: "Laat een stuk nakijken tegen de wet en tegen eerdere rapporten.", na: 3200, stappen: [
-    [500, () => naar('.subtabs [data-s="vraag"]')],
-    [850, i => { klik(i); sub("vraag"); }],
-    [700, () => naar("#vraagin")],
-    [800, i => { klik(i); return typ("#vraagin", "Klopt deze alinea?", i); }],
-    [400, () => naar("#vraagknop")],
-    [800, i => { klik(i); aan("gevraagd"); $("#vraagin").textContent = ""; }],
-    [1700, () => aan("antwoord")],
-    [2800, () => naar("#neemover")],
-    [900, i => { klik(i); alinea(3); aan("overgenomen"); }],
+  { cap: "Herschrijf zelf, of geef een opdracht.", na: 2300, stappen: [
+    [300, () => { zoom(1); naar('.subtabs [data-s="bewerken"]'); }],
+    [500, i => { klik(i); sub("bewerken"); }],
+    [450, () => naar("#korter")],
+    [500, i => { klik(i); aan("werkt"); }],
+    [700, () => { uit("werkt"); alinea(2); aan("v2"); }],
   ]},
-  { cap: "Jij beslist. Het systeem laat zien waarom.", na: 0, stappen: [
-    [600, () => naar("#alinea .bevlabel")],
-    [900, i => { klik(i); alinea(4); }],
-    [700, () => naar('.tabs [data-t="eind"]')],
-    [850, i => { klik(i); tab("eind"); }],
-    [700, () => naar("#draai")],
-    [850, i => { klik(i); aan("draait"); }],
-    [1500, () => { uit("draait"); aan("gedraaid"); }],
-    [1300, () => naar("#m1 .knop")],
-    [850, i => { klik(i); $("#m1").classList.add("af"); }],
-    [500, () => naar("#m2 .knop")],
-    [800, i => { klik(i); $("#m2").classList.add("af"); }],
-    [500, () => naar("#m3 .knop")],
-    [800, i => { klik(i); $("#m3").classList.add("af"); }],
-    [2400, () => aan("einde")],
+  { cap: "Laat een alinea nakijken.", na: 1400, stappen: [
+    [300, () => naar('.subtabs [data-s="vraag"]')],
+    [500, i => { klik(i); sub("vraag"); }],
+    [400, () => naar("#vraagin")],
+    [500, i => { klik(i); return typ("#vraagin", "Klopt deze alinea?", i); }],
+    [250, () => naar("#vraagknop")],
+    [500, i => { klik(i); aan("gevraagd"); $("#vraagin").textContent = ""; }],
+    [900, () => { aan("antwoord"); zoom(1.3, 1000, 330); }],   // inzoomen op het antwoord en het voorstel
+    [1500, () => naar("#neemover")],
+    [550, i => { klik(i); alinea(3); aan("overgenomen"); zoom(1); }],   // uitzoomen: het voorstel staat geel in de alinea
+  ]},
+  { cap: "Eindcontrole.", na: 0, stappen: [
+    [300, () => { zoom(1); naar('.tabs [data-t="eind"]'); }],
+    [450, i => { klik(i); alinea(4); tab("eind"); }],
+    [350, () => naar("#draai")],
+    [450, i => { klik(i); aan("draait"); }],
+    [600, () => { uit("draait"); aan("gedraaid"); }],
+    [500, () => naar("#m1 .knop")],
+    [400, i => { klik(i); $("#m1").classList.add("af"); }],
+    [200, () => naar("#m2 .knop")],
+    [350, i => { klik(i); $("#m2").classList.add("af"); }],
+    [200, () => naar("#m3 .knop")],
+    [350, i => { klik(i); $("#m3").classList.add("af"); }],
+    [800, () => aan("einde")],
   ]},
 ];
 
@@ -598,7 +697,10 @@ function wacht(ms, id) {         // wacht ms, telt niet door tijdens pauze; fals
     })();
   });
 }
-function leeg() { app.className = ""; app.dataset.tab = "start"; delete app.dataset.sub; app.innerHTML = VENSTER; }
+function leeg() {
+  app.className = ""; app.dataset.tab = "start"; delete app.dataset.sub; delete app.dataset.ksub; app.innerHTML = VENSTER;
+  if (EMBED) app.querySelectorAll(".einde a").forEach(a => a.target = "_top");   // links openen in de omringende pagina
+}
 function zetTot(n) {             // de eindtoestand van scène n, zonder beweging (n = -1: het begin)
   app.classList.add("inst");
   leeg(); app.classList.add("inst");
@@ -655,9 +757,25 @@ document.getElementById("pauze").addEventListener("click", () => {
   else speel(scene >= SCENES.length - 1 ? 0 : scene + 1);
 });
 
-const vraag = new URLSearchParams(location.search).get("scene");
+const vraag = PARAMS.get("scene");
 if (vraag !== null && +vraag >= 1 && +vraag <= SCENES.length) stil(+vraag - 1);   // ?scene=N: eindtoestand van scène N, gepauzeerd
-else speel(0);
+else if (EMBED && "IntersectionObserver" in window) {
+  // ingesloten: pas beginnen als het venster in beeld is, en pauzeren zodra het uit beeld raakt
+  stil(0); zetTot(-1); scene = -1;   // beginstand; "Verder" start dan bij scène 1
+  let gestart = false, zelfGepauzeerd = false;
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) {
+      if (!gestart) { gestart = true; speel(0); }
+      else if (zelfGepauzeerd) { zelfGepauzeerd = false; gepauzeerd = false; knoptekst(); }
+    } else if (bezig && !gepauzeerd) { zelfGepauzeerd = true; gepauzeerd = true; knoptekst(); }
+  }, { threshold: 0.35 }).observe(wrap);
+} else speel(0);
+
+if (EMBED && parent !== window) {   // de omringende pagina kan het iframe zo passend maken
+  const meld = () => parent.postMessage({ regelrapportHoogte: document.documentElement.scrollHeight }, "*");
+  if ("ResizeObserver" in window) new ResizeObserver(meld).observe(document.body);
+  addEventListener("load", meld); meld();
+}
 </script>
 </body>
 </html>

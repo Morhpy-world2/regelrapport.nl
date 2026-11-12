@@ -276,13 +276,13 @@ pagina("herkomst-en-controle/", "Herkomst en controle",
 </div></section>
 """ + sectie("01", "Voorbeeld: één regel, drie bronnen", """
     <figure class="spoor">
-      <p class="zin">Op de gevel aan de <mark class="m1">Dorpsstraat<sup>1</sup></mark> is de geluidbelasting
+      <p class="zin">Op de gevel aan de <mark class="m1">Beukenlaan<sup>1</sup></mark> is de geluidbelasting
       <mark class="m2">54 dB<sup>2</sup></mark>, en daarmee
       <mark class="m3">hoger dan de standaardwaarde<sup>3</sup></mark>.</p>
       <table>
         <thead><tr><th scope="col">Nr.</th><th scope="col">Deel van de regel</th><th scope="col">Herkomst</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td><span class="m1">Dorpsstraat</span></td>
+          <tr><td>1</td><td><span class="m1">Beukenlaan</span></td>
             <td>Uit de offerte, met het letterlijke citaat. Door jou bevestigd.</td></tr>
           <tr><td>2</td><td><span class="m2">54 dB</span></td>
             <td>Uit de rekenresultaten, met de plek in het bestand.</td></tr>

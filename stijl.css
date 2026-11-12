@@ -96,6 +96,8 @@ section > h2 + p { margin-top: 12px; }
 
 .twee { display: grid; gap: 36px 48px; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); align-items: start; }
 
+iframe.film { display: block; width: 100%; aspect-ratio: 16 / 11; border: 0; margin-top: 24px; background: #fff; border-radius: 8px; }
+
 /* voet */
 .voet { border-top: 2px solid var(--inkt); font-size: 16px; color: var(--inkt-zacht); }
 .voet .breed { display: flex; flex-wrap: wrap; gap: 8px 28px; padding-block: 22px 30px; }
